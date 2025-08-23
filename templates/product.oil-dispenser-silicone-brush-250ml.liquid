@@ -1,0 +1,418 @@
+<!-- Product Detail Page - Oil Dispenser Specific -->
+<div class="product-page">
+  <div class="container">
+    <!-- Main Product Section -->
+    <div class="product-main-section">
+      <!-- Left Side: Product Images -->
+      <div class="product-images-section">
+        <div class="main-image-container">
+          <img src="{{ product.featured_image | img_url: '800x800' }}" 
+               alt="{{ product.title }}" 
+               class="main-product-image"
+               id="main-product-image"
+               onclick="openImageModal()">
+          
+          <!-- Navigation Arrows -->
+          {% if product.images.size > 1 %}
+            <button class="nav-arrow nav-prev" onclick="navigateImage(-1)" aria-label="Previous image">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+            <button class="nav-arrow nav-next" onclick="navigateImage(1)" aria-label="Next image">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+          {% endif %}
+          
+          <!-- Tap to Enlarge Tag -->
+          <div class="enlarge-tag">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 9l-6-6M3 15l6 6"/>
+            </svg>
+            <span>Tap to enlarge</span>
+          </div>
+        </div>
+
+        <!-- Thumbnails -->
+        {% if product.images.size > 1 %}
+          <div class="product-thumbnails">
+            {% for image in product.images %}
+              <div class="thumbnail-item {% if forloop.first %}active{% endif %}" 
+                   data-image-url="{{ image | img_url: '800x800' }}"
+                   data-image-index="{{ forloop.index0 }}"
+                   onclick="selectProductImage({{ forloop.index0 }})">
+                <img src="{{ image | img_url: '150x150' }}" alt="{{ image.alt | default: product.title }}">
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Right Side: Product Info -->
+      <div class="product-info-section">
+        <!-- Product Title -->
+        <h1 class="product-title">{{ product.title }}</h1>
+        
+        <!-- Reviews -->
+        <div class="product-reviews">
+          <div class="rating-stars">
+            <span class="star filled">⭐</span>
+            <span class="star filled">⭐</span>
+            <span class="star filled">⭐</span>
+            <span class="star filled">⭐</span>
+            <span class="star filled">⭐</span>
+          </div>
+          <span class="rating-number">4.8</span>
+          <span class="review-count">(127 reviews)</span>
+        </div>
+        
+        <!-- Price -->
+        <div class="product-price">
+          {% if product.compare_at_price > product.price %}
+            <span class="original-price">₹{{ product.compare_at_price | money_without_currency }}</span>
+            <span class="sale-price">₹{{ product.price | money_without_currency }}</span>
+            <span class="discount-badge">40% OFF</span>
+          {% else %}
+            <span class="current-price">₹{{ product.price | money_without_currency }}</span>
+          {% endif %}
+        </div>
+        
+        <!-- One Liner - OIL DISPENSER SPECIFIC -->
+        <div class="product-one-liner">
+          <h2>CONTROL EVERY DROP, MASTER EVERY DISH</h2>
+        </div>
+        
+        <!-- Quantity and Add to Cart -->
+        <div class="product-actions">
+          <div class="quantity-selector">
+            <button class="qty-btn" onclick="updateQuantity(-1)">-</button>
+            <input type="number" id="quantity" value="1" min="1" max="10" onchange="updateQuantity(0)">
+            <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCart()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+            </svg>
+            Add to Cart
+          </button>
+        </div>
+        
+        <!-- Wishlist Button -->
+        <button class="wishlist-btn" onclick="addToWishlist()" id="wishlist-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span>Add to Wishlist</span>
+        </button>
+        
+        <!-- Product Accordions -->
+        <div class="product-accordions">
+          <div class="accordion-item active" data-accordion="1">
+            <button class="accordion-header" type="button">
+              <span>📝 Product Description</span>
+              <svg class="accordion-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <div class="product-description">
+                <p>🎉 Hey there, kitchen rockstar! Ready to level up your cooking game? Meet your new BFF - our absolutely AMAZING 2-in-1 Oil Brush Glass Dispenser! This little genius is about to become your kitchen's MVP! 🏆</p>
+                <p>🌟 Picture this: You're cooking up a storm, and instead of juggling oil bottles and brushes like a circus act, you've got this sleek 250ml glass beauty that does BOTH jobs at once! It's like having a kitchen assistant that never asks for a coffee break! ☕</p>
+                <p>💪 Whether you're greasing pans like a pro, brushing marinades with precision, or just trying to avoid that awkward oil bottle dance, this bad boy has got your back! Plus, it's leak-proof, so no more "oops, there goes my oil everywhere" moments! 😅</p>
+                <p>✨ And the best part? Cleaning is a breeze! No more scrubbing for hours - just pop it in the dishwasher and you're done! It's like magic, but better! 🪄</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion-item" data-accordion="2">
+            <button class="accordion-header" type="button">
+              <span>✨ Key Features</span>
+              <svg class="accordion-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <ul class="key-features-list">
+                <li>✨ 250ml glass container that's as pretty as it is practical!</li>
+                <li>🎯 2-in-1 magic: dispense oil AND brush at the same time - because why do one thing when you can do two? 😎</li>
+                <li>🛡️ Food-grade silicone that's so safe, you could eat it (but please don't!)</li>
+                <li>💧 Leak-proof design - goodbye, kitchen oil disasters! 👋</li>
+                <li>🧽 Easy-peasy to clean and refill - even your cat could do it!</li>
+                <li>🍽️ Dishwasher safe - just pop it in and go binge-watch your favorite show!</li>
+                <li>👨‍🍳 Perfect for greasing pans and applying marinades like a cooking ninja!</li>
+                <li>🎨 Sleek design that'll make your kitchen look Instagram-worthy!</li>
+                <li>⚡ Quick and efficient - because time is money, and you've got better things to do!</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="accordion-item" data-accordion="3">
+            <button class="accordion-header" type="button">
+              <span>📖 How to Use</span>
+              <svg class="accordion-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <ol class="usage-steps">
+                <li>🎯 Step 1: Fill up that gorgeous glass container with your favorite cooking oil (or whatever liquid magic you're working with!)</li>
+                <li>💧 Step 2: Gently press that super-soft silicone brush - it's like giving it a little hug! The perfect amount of oil will come out, no more, no less!</li>
+                <li>🖌️ Step 3: Now brush that oil evenly on your cooking surface or food - you'll feel like a professional chef, we promise!</li>
+                <li>🍖 Step 4: Feeling fancy? Fill it with your yummy marinade mixture instead! This thing is versatile like that!</li>
+                <li>🧼 Step 5: Clean up time! Just warm soapy water and you're golden - literally takes 30 seconds!</li>
+                <li>🏠 Step 6: Store it in a cool, dry spot when you're done being a kitchen superstar!</li>
+                <li>🎉 Bonus Step: Bask in the glory of your perfectly oiled cooking surface and pat yourself on the back!</li>
+              </ol>
+            </div>
+          </div>
+          
+          <div class="accordion-item" data-accordion="4">
+            <button class="accordion-header" type="button">
+              <span>🚚 Shipping & Returns</span>
+              <svg class="accordion-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="accordion-content">
+              <p>🚚 Fast delivery in 7-8 days! We're not kidding - we want you cooking with this beauty ASAP! 💯 No-fuss returns guaranteed (though we're pretty sure you'll fall in love with it!). <a href="https://desideals.app/pages/shipping-and-returns-policy" target="_blank" style="color: #6366f1; text-decoration: underline;">Check out our full policy here</a> ✨</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Callout Logos Section -->
+    <div class="callout-logos-section">
+      <div class="callout-logos">
+        <div class="callout-logo">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span>Premium Quality</span>
+        </div>
+        <div class="callout-logo">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+          </svg>
+          <span>Trusted Brand</span>
+        </div>
+        <div class="callout-logo">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+          </svg>
+          <span>Fast Delivery</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Callout Text Section - OIL DISPENSER SPECIFIC -->
+    <div class="callout-text-section">
+      <h2 class="callout-text">CONTROL EVERY DROP, MASTER EVERY DISH</h2>
+    </div>
+    
+    <!-- Product Image Section (Placeholder) -->
+    <div class="product-image-section">
+      <img src="{{ 'product-showcase.jpg' | asset_url }}" alt="Product Showcase" class="product-showcase-image">
+    </div>
+    
+    <!-- Why Choose Us Section -->
+    <div class="why-choose-us-section">
+      <h2 class="section-title">Why Choose Us</h2>
+      <div class="comparison-grid">
+        <div class="comparison-item us">
+          <h3>Us</h3>
+          <ul>
+            <li class="check">✅ Premium Quality Materials</li>
+            <li class="check">✅ 30-Day Return Policy</li>
+            <li class="check">✅ Free Shipping Above ₹299</li>
+            <li class="check">✅ 24/7 Customer Support</li>
+            <li class="check">✅ 2-Year Warranty</li>
+          </ul>
+        </div>
+        <div class="comparison-item others">
+          <h3>Others</h3>
+          <ul>
+            <li class="cross">❌ Basic Materials</li>
+            <li class="check">✅ 7-Day Return Policy</li>
+            <li class="cross">❌ Paid Shipping</li>
+            <li class="cross">❌ Limited Support</li>
+            <li class="cross">❌ No Warranty</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Trusted By Thousands Section -->
+    <div class="trusted-section">
+      <div class="trusted-content">
+        <h2>Trusted by Thousands 🇮🇳</h2>
+      </div>
+    </div>
+    
+    <!-- Reviews Section -->
+    <div class="reviews-section">
+      <h2 class="section-title">Customer Reviews</h2>
+      <div class="reviews-list">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-info">
+              <h4 class="reviewer-name">Priya S.</h4>
+              <div class="review-stars">
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+              </div>
+            </div>
+            <div class="verified-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+              </svg>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+          <div class="review-body">
+            <p>🔥 OMG! This oil dispenser is absolutely AMAZING! The brush works like actual magic and no more messy oil bottles cluttering up my kitchen! My cooking game has never been stronger! 💪</p>
+          </div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-info">
+              <h4 class="reviewer-name">Rajesh K.</h4>
+              <div class="review-stars">
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+              </div>
+            </div>
+            <div class="verified-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+              </svg>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+          <div class="review-body">
+            <p>🎯 Perfect for greasing pans! The control is absolutely INCREDIBLE - I feel like Gordon Ramsay in my own kitchen now! No more oil disasters! 👨‍🍳</p>
+          </div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-info">
+              <h4 class="reviewer-name">Anita M.</h4>
+              <div class="review-stars">
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+              </div>
+            </div>
+            <div class="verified-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+              </svg>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+          <div class="review-body">
+            <p>✨ Excellent quality glass and silicone brush! Super easy to clean - literally takes 30 seconds! This is exactly what my kitchen was missing! 🧽✨</p>
+          </div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-info">
+              <h4 class="reviewer-name">Suresh P.</h4>
+              <div class="review-stars">
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+              </div>
+            </div>
+            <div class="verified-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+              </svg>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+          <div class="review-body">
+            <p>💯 This is EXACTLY what I needed for my kitchen! Love the precision - it's like this thing can read my mind! My cooking has never been so smooth! 🧠✨</p>
+          </div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-info">
+              <h4 class="reviewer-name">Meera R.</h4>
+              <div class="review-stars">
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+                <span class="star filled">⭐</span>
+              </div>
+            </div>
+            <div class="verified-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+              </svg>
+              <span>Verified Buyer</span>
+            </div>
+          </div>
+          <div class="review-body">
+            <p>🏆 High quality construction and the oil flow is absolutely PERFECT - couldn't ask for better! This thing is built like a tank but works like a dream! 🏗️💫</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Image Modal -->
+<div id="imageModal" class="image-modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeImageModal()">&times;</span>
+    <img id="modalImage" src="" alt="Enlarged Product Image" class="modal-image">
+    
+    <!-- Modal Navigation Arrows -->
+    {% if product.images.size > 1 %}
+      <button class="modal-nav modal-prev" onclick="navigateModalImage(-1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <button class="modal-nav modal-next" onclick="navigateModalImage(1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    {% endif %}
+    
+    <!-- Modal Thumbnails -->
+    {% if product.images.size > 1 %}
+      <div class="modal-thumbnails">
+        {% for image in product.images %}
+          <div class="modal-thumbnail {% if forloop.first %}active{% endif %}" 
+               onclick="selectModalImage({{ forloop.index0 }})">
+            <img src="{{ image | img_url: '100x100' }}" alt="{{ image.alt | default: product.title }}">
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Include the main product template for styling and functionality -->
+{% render 'product-template-styles' %}
+{% render 'product-template-scripts' %}

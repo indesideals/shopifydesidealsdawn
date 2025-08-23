@@ -1,0 +1,54 @@
+# Shopify CLI and Theme Development
+.shopify/
+*.log
+.env
+.env.local
+.env.production
+.env.development
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Build outputs
+dist/
+build/
+*.map
+
+# Shopify theme files that shouldn't be versioned
+config/settings_data.json
+templates/*customer*
+templates/*gift_card*
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# Local development
+.liquid-lsp/

@@ -1,0 +1,75 @@
+{% comment %}
+  Wishlist API Endpoint
+  This file handles wishlist operations for authenticated customers
+{% endcomment %}
+
+{% if customer %}
+  {% assign customer_id = customer.id %}
+  {% assign wishlist_metafield = customer.metafields.wishlist.products %}
+  
+  {% if request.method == 'GET' %}
+    {
+      "customer_id": {{ customer_id }},
+      "wishlist": {{ wishlist_metafield | default: '[]' }}
+    }
+  {% elsif request.method == 'POST' %}
+    {% assign product_data = request.body | parse_json %}
+    {% assign current_wishlist = wishlist_metafield | default: '[]' | parse_json %}
+    
+    {% comment %} Check if product already exists {% endcomment %}
+    {% assign product_exists = false %}
+    {% for item in current_wishlist %}
+      {% if item.id == product_data.product_id %}
+        {% assign product_exists = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    
+    {% unless product_exists %}
+      {% assign new_product = product_data %}
+      {% assign current_wishlist = current_wishlist | push: new_product %}
+    {% endunless %}
+    
+    {% comment %} Save to customer metafield {% endcomment %}
+    {% assign customer_metafield = customer.metafields.wishlist %}
+    {% assign customer_metafield = customer_metafield | merge: '{"products": ' | append: current_wishlist | append: '}' %}
+    
+    {
+      "success": true,
+      "message": "Product added to wishlist",
+      "wishlist": {{ current_wishlist }}
+    }
+  {% elsif request.method == 'DELETE' %}
+    {% assign current_wishlist = wishlist_metafield | default: '[]' | parse_json %}
+    
+    {% if request.body %}
+      {% assign delete_data = request.body | parse_json %}
+      {% assign product_id_to_delete = delete_data.product_id %}
+      
+      {% assign updated_wishlist = '[]' | parse_json %}
+      {% for item in current_wishlist %}
+        {% unless item.id == product_id_to_delete %}
+          {% assign updated_wishlist = updated_wishlist | push: item %}
+        {% endunless %}
+      {% endfor %}
+    {% else %}
+      {% comment %} Clear all wishlist items {% endcomment %}
+      {% assign updated_wishlist = '[]' | parse_json %}
+    {% endif %}
+    
+    {% comment %} Save to customer metafield {% endcomment %}
+    {% assign customer_metafield = customer.metafields.wishlist %}
+    {% assign customer_metafield = customer_metafield | merge: '{"products": ' | append: updated_wishlist | append: '}' %}
+    
+    {
+      "success": true,
+      "message": "Wishlist updated",
+      "wishlist": {{ updated_wishlist }}
+    }
+  {% endif %}
+{% else %}
+  {
+    "error": "Authentication required",
+    "message": "Please log in to access wishlist functionality"
+  }
+{% endif %} 

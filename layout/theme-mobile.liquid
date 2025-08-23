@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="theme-color" content="">
+  <link rel="canonical" href="{{ canonical_url }}">
+  
+  <!-- Mobile-Optimized Favicon -->
+  <link rel="icon" type="image/svg+xml" href="{{ 'favicon.svg' | asset_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'apple-touch-icon.png' | asset_url }}">
+  <link rel="manifest" href="{{ 'site.webmanifest' | asset_url }}">
+  
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {{ content_for_header }}
+
+  <!-- Mobile-Specific Analytics -->
+  <script>
+    // Mobile-specific tracking
+    if (typeof gtag !== 'undefined') {
+      gtag('config', 'G-5P95NEY7EB', {
+        'custom_map': {'custom_parameter_1': 'mobile_view'},
+        'mobile_interface': true
+      });
+    }
+  </script>
+
+  <!-- Mobile Optimized Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared Base CSS -->
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  
+  <!-- MOBILE-ONLY CSS -->
+  {{ 'mobile.css' | asset_url | stylesheet_tag }}
+  
+  <!-- MOBILE-ONLY JavaScript -->
+  {{ 'device-detection.js' | asset_url | script_tag }}
+  {{ 'mobile.js' | asset_url | script_tag }}
+  
+  <style>
+    /* Mobile-Only CSS Variables */
+    :root {
+      --mobile-font-base: 14px;
+      --mobile-font-large: 18px;
+      --mobile-font-xl: 24px;
+      --mobile-spacing-xs: 4px;
+      --mobile-spacing-sm: 8px;
+      --mobile-spacing-md: 16px;
+      --mobile-spacing-lg: 24px;
+      --mobile-spacing-xl: 32px;
+      --mobile-border-radius: 8px;
+      --mobile-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      --mobile-transition: all 0.3s ease;
+    }
+  </style>
+</head>
+
+<body class="mobile-experience" data-theme-type="mobile">
+  <!-- Mobile Top Banner -->
+  <div class="mobile-top-banner">
+    <div class="mobile-banner-content">
+      🚚 FREE SHIPPING ₹299+ | 💳 COD | 🔥 40% OFF
+    </div>
+  </div>
+
+  <!-- Mobile Header -->
+  <header class="mobile-header">
+    <div class="mobile-header-content">
+      <!-- Hamburger Menu -->
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      
+      <!-- Logo -->
+      <div class="mobile-logo">
+        <a href="/">
+          {% if settings.logo %}
+            <img src="{{ settings.logo | image_url: width: 150 }}" alt="{{ shop.name }}" loading="eager">
+          {% else %}
+            <span class="mobile-logo-text">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+      </div>
+      
+      <!-- Mobile Actions -->
+      <div class="mobile-header-actions">
+        <button class="mobile-action-btn" onclick="openMobileSearch()" aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21L16.65 16.65"/>
+          </svg>
+        </button>
+        
+        <a href="/pages/favorites" class="mobile-action-btn mobile-wishlist-btn" aria-label="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="mobile-wishlist-count">0</span>
+        </a>
+        
+        <button class="mobile-action-btn mobile-cart-btn" onclick="openMobileCart()" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 22c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/>
+            <path d="M20 22c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/>
+            <path d="M1 1h4l2.68 13.39c.09.46.46.78.92.78h9.4c.46 0 .83-.32.92-.78L23 6H6"/>
+          </svg>
+          <span class="mobile-cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Search Overlay -->
+  <div class="mobile-search-overlay" id="mobileSearchOverlay">
+    <div class="mobile-search-container">
+      <div class="mobile-search-header">
+        <h3>Search Products</h3>
+        <button class="mobile-search-close" onclick="closeMobileSearch()">×</button>
+      </div>
+      <div class="mobile-search-form">
+        <input type="text" placeholder="What are you looking for?" class="mobile-search-input" id="mobileSearchInput">
+        <button class="mobile-search-submit" onclick="performMobileSearch()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21L16.65 16.65"/>
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-search-suggestions" id="mobileSearchSuggestions"></div>
+    </div>
+  </div>
+
+  <!-- Mobile Side Menu -->
+  <div class="mobile-side-menu" id="mobileSideMenu">
+    <div class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <h3>Menu</h3>
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">×</button>
+      </div>
+      <nav class="mobile-menu-nav">
+        <a href="/" class="mobile-menu-link">🏠 Home</a>
+        <a href="/collections/all" class="mobile-menu-link">🛍️ All Products</a>
+        <a href="/pages/about-us" class="mobile-menu-link">ℹ️ About Us</a>
+        <a href="/pages/contact" class="mobile-menu-link">📞 Contact</a>
+        <a href="/pages/favorites" class="mobile-menu-link">💖 Wishlist</a>
+        <a href="/pages/shipping-and-returns-policy" class="mobile-menu-link">🚚 Shipping Info</a>
+        <a href="/account" class="mobile-menu-link">👤 {% if customer %}Account{% else %}Login{% endif %}</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Mobile Main Content -->
+  <main class="mobile-main">
+    {{ content_for_layout }}
+  </main>
+
+  <!-- Mobile Footer -->
+  <footer class="mobile-footer">
+    <div class="mobile-footer-content">
+      <div class="mobile-footer-section">
+        <h4>{{ shop.name }}</h4>
+        <p>Quality products, exceptional service</p>
+      </div>
+      
+      <div class="mobile-footer-links">
+        <a href="/pages/about-us">About</a>
+        <a href="/pages/contact">Contact</a>
+        <a href="/pages/shipping-and-returns-policy">Shipping</a>
+        <a href="/pages/privacy-policy">Privacy</a>
+      </div>
+      
+      <div class="mobile-footer-social">
+        <a href="{{ section.settings.facebook_url | default: '#' }}" aria-label="Facebook">📘</a>
+        <a href="{{ section.settings.instagram_url | default: '#' }}" aria-label="Instagram">📷</a>
+        <a href="{{ section.settings.twitter_url | default: '#' }}" aria-label="Twitter">🐦</a>
+      </div>
+      
+      <div class="mobile-footer-copy">
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav">
+    <a href="/" class="mobile-nav-item {% if template.name == 'index' %}active{% endif %}">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+      <span>Home</span>
+    </a>
+    
+    <a href="/collections/all" class="mobile-nav-item {% if template.name == 'collection' %}active{% endif %}">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span>Shop</span>
+    </a>
+    
+    <button class="mobile-nav-item" onclick="openMobileSearch()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21L16.65 16.65"/>
+      </svg>
+      <span>Search</span>
+    </button>
+    
+    <a href="/pages/favorites" class="mobile-nav-item mobile-wishlist-nav">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      <span>Wishlist</span>
+      <span class="mobile-nav-badge mobile-wishlist-badge">0</span>
+    </a>
+    
+    <button class="mobile-nav-item mobile-cart-nav" onclick="openMobileCart()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 22c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/>
+        <path d="M20 22c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/>
+        <path d="M1 1h4l2.68 13.39c.09.46.46.78.92.78h9.4c.46 0 .83-.32.92-.78L23 6H6"/>
+      </svg>
+      <span>Cart</span>
+      <span class="mobile-nav-badge mobile-cart-badge">0</span>
+    </button>
+  </nav>
+
+  <!-- Mobile Cart Drawer -->
+  <div class="mobile-cart-drawer" id="mobileCartDrawer">
+    <div class="mobile-cart-overlay" onclick="closeMobileCart()"></div>
+    <div class="mobile-cart-content">
+      <div class="mobile-cart-header">
+        <h3>Shopping Cart</h3>
+        <button class="mobile-cart-close" onclick="closeMobileCart()">×</button>
+      </div>
+      <div class="mobile-cart-items" id="mobileCartItems">
+        <!-- Cart items loaded dynamically -->
+      </div>
+      <div class="mobile-cart-footer" id="mobileCartFooter">
+        <div class="mobile-cart-total">
+          <span>Total: </span>
+          <span id="mobileCartTotal">₹0.00</span>
+        </div>
+        <button class="mobile-checkout-btn" onclick="proceedToMobileCheckout()">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

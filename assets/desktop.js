@@ -819,6 +819,208 @@
       this.suggestionsContainer = document.getElementById('desktopSearchSuggestions');
     },
 
+    showSearchInput: function() {
+      console.log('Showing search input...');
+      // Create search input if it doesn't exist
+      if (!this.searchInput) {
+        this.createSearchInput();
+      }
+      
+      if (this.searchInput) {
+        this.searchInput.style.display = 'block';
+        this.searchInput.focus();
+        console.log('Search input shown and focused');
+      } else {
+        console.log('Failed to create search input');
+      }
+    },
+
+             createSearchInput: function() {
+           // Find the header and logo area
+           const header = document.querySelector('.desktop-header');
+           const logoArea = document.querySelector('.desktop-logo');
+           
+           if (!header || !logoArea) {
+             console.log('Header or logo area not found');
+             return;
+           }
+           
+           // Store original logo HTML for restoration
+           this.originalLogoHTML = logoArea.outerHTML;
+           
+           // Create search input container
+           const searchContainer = document.createElement('div');
+           searchContainer.id = 'desktopSearchContainer';
+           searchContainer.style.cssText = `
+             position: relative;
+             background: white;
+             border: 2px solid #ddd;
+             border-radius: 25px;
+             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+             z-index: 1002;
+             padding: 0.5rem;
+             color: black;
+             width: 100%;
+             max-width: 400px;
+             margin: 0 auto;
+           `;
+
+                 // Create search input
+           this.searchInput = document.createElement('input');
+           this.searchInput.id = 'desktopSearchInput';
+           this.searchInput.type = 'search';
+           this.searchInput.placeholder = 'Search products...';
+           this.searchInput.style.cssText = `
+             width: 100%;
+             padding: 0.5rem 1rem;
+             border: none;
+             outline: none;
+             font-family: 'Poppins', sans-serif;
+             font-size: 1rem;
+             background: transparent;
+             color: black;
+             transition: border-color 0.3s ease;
+           `;
+
+                 // Create suggestions container
+           this.suggestionsContainer = document.createElement('div');
+           this.suggestionsContainer.id = 'desktopSearchSuggestions';
+           this.suggestionsContainer.style.cssText = `
+             position: absolute;
+             top: 100%;
+             left: 0;
+             right: 0;
+             max-height: 400px;
+             overflow-y: auto;
+             background: white;
+             color: black;
+             border: 1px solid #eee;
+             border-radius: 8px;
+             margin-top: 0.5rem;
+             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+             z-index: 1003;
+           `;
+
+      // Add close button
+      const closeButton = document.createElement('button');
+      closeButton.innerHTML = '✕';
+      closeButton.style.cssText = `
+        position: absolute;
+        top: 50%;
+        right: 0.5rem;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: #666;
+        padding: 0.5rem;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+      `;
+      closeButton.addEventListener('click', () => this.hideSearchInput());
+      closeButton.addEventListener('mouseenter', () => {
+        closeButton.style.backgroundColor = '#f0f0f0';
+      });
+      closeButton.addEventListener('mouseleave', () => {
+        closeButton.style.backgroundColor = 'transparent';
+      });
+
+      // Add elements to container
+      searchContainer.appendChild(this.searchInput);
+      searchContainer.appendChild(this.suggestionsContainer);
+      searchContainer.appendChild(closeButton);
+      
+      // Replace logo area with search container
+      const headerCenter = document.querySelector('.desktop-header-center');
+      if (headerCenter) {
+        headerCenter.innerHTML = '';
+        headerCenter.appendChild(searchContainer);
+      }
+      
+      // Show all products by default
+      this.showAllProducts();
+
+      // Bind events
+      this.searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        console.log('Search input:', query);
+        
+        if (query.length >= 2) {
+          this.showSuggestions();
+        } else if (query.length === 0) {
+          this.showAllProducts();
+        } else {
+          this.hideSuggestions();
+        }
+      });
+      this.searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          this.hideSearchInput();
+        }
+      });
+      this.searchInput.addEventListener('focus', () => {
+        this.searchInput.style.borderColor = '#007bff';
+      });
+      this.searchInput.addEventListener('blur', () => {
+        this.searchInput.style.borderColor = '#ddd';
+      });
+
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (!searchContainer.contains(e.target) && !e.target.closest('.desktop-search-toggle')) {
+          this.hideSearchInput();
+        }
+      });
+    },
+
+    hideSearchInput: function() {
+      if (this.searchInput) {
+        this.searchInput.style.display = 'none';
+        this.searchInput.value = '';
+        if (this.suggestionsContainer) {
+          this.suggestionsContainer.style.display = 'none';
+        }
+      }
+      
+      // Restore original logo
+      const headerCenter = document.querySelector('.desktop-header-center');
+      const searchContainer = document.getElementById('desktopSearchContainer');
+      
+      if (headerCenter && searchContainer && this.originalLogoHTML) {
+        headerCenter.innerHTML = this.originalLogoHTML;
+        searchContainer.remove();
+      }
+    },
+
+    showAllProducts: function() {
+      if (!this.suggestionsContainer) return;
+      
+      this.suggestionsContainer.style.display = 'block';
+      this.suggestionsContainer.innerHTML = `
+        <div style="padding: 1rem; text-align: center; color: black;">Loading all products...</div>
+      `;
+      
+      fetch('/collections/all/products.json')
+        .then(response => response.json())
+        .then(data => {
+          const products = data.products || [];
+          this.displayProductSuggestions(products);
+        })
+        .catch(error => {
+          console.error('Error fetching products:', error);
+          this.suggestionsContainer.innerHTML = `
+            <div style="padding: 1rem; text-align: center; color: black;">Error loading products</div>
+          `;
+        });
+    },
+
+    hideSuggestions: function() {
+      if (this.suggestionsContainer) {
+        this.suggestionsContainer.style.display = 'none';
+      }
+    },
+
     performSearch: function() {
       if (!this.searchInput || !this.searchInput.value.trim()) return;
 
@@ -836,27 +1038,73 @@
       if (!this.searchInput || !this.suggestionsContainer) return;
       
       const query = this.searchInput.value.trim();
+      console.log('Showing suggestions for:', query);
       
-      if (query.length < DESKTOP_CONFIG.SEARCH_MIN_CHARS) {
+      if (query.length < 2) {
         this.hideSuggestions();
         return;
       }
 
       // Show loading state
       this.suggestionsContainer.innerHTML = `
-        <div class="desktop-search-loading">
-          <svg class="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.49 8.49l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.49-8.49l2.83-2.83"/>
-          </svg>
-          Searching...
-        </div>
+        <div style="padding: 1rem; text-align: center; color: black;">Loading products...</div>
       `;
       this.suggestionsContainer.style.display = 'block';
 
-      // Simulate search suggestions (in real implementation, this would be an API call)
-      setTimeout(() => {
-        this.renderSuggestions(query);
-      }, 300);
+      // Fetch real products from Shopify
+      this.fetchProducts(query);
+    },
+
+    fetchProducts: function(query) {
+      fetch('/collections/all/products.json')
+        .then(response => response.json())
+        .then(data => {
+          const products = data.products || [];
+          const filtered = products.filter(product => 
+            product.title.toLowerCase().includes(query.toLowerCase())
+          );
+          this.displayProductSuggestions(filtered);
+        })
+        .catch(error => {
+          console.error('Error fetching products:', error);
+          this.suggestionsContainer.innerHTML = `
+            <div style="padding: 1rem; text-align: center; color: black;">Error loading products</div>
+          `;
+        });
+    },
+
+    displayProductSuggestions: function(products) {
+      if (!this.suggestionsContainer) return;
+      
+      if (products.length === 0) {
+        this.suggestionsContainer.innerHTML = `
+          <div style="padding: 1rem; text-align: center; color: black;">No products found</div>
+        `;
+        return;
+      }
+      
+      const suggestionsHTML = products.slice(0, 8).map(product => {
+        const image = product.images && product.images.length > 0 ? product.images[0].src : '';
+        const price = product.variants && product.variants.length > 0 ? product.variants[0].price : '0';
+        const comparePrice = product.variants && product.variants.length > 0 ? product.variants[0].compare_at_price : null;
+        const productUrl = `/products/${product.handle}`;
+        
+        return `
+          <div style="display: flex; align-items: center; padding: 0.75rem 1rem; border-bottom: 1px solid #eee; cursor: pointer; color: black;" 
+               onclick="window.location.href='${productUrl}'">
+            <img src="${image}" alt="${product.title}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 1rem; border-radius: 4px;">
+            <div style="flex: 1;">
+              <div style="font-weight: 500; margin-bottom: 0.25rem; font-size: 0.9rem;">${product.title}</div>
+              <div style="color: #666; font-size: 0.8rem;">
+                ${comparePrice ? `<span style="text-decoration: line-through; margin-right: 0.5rem;">₹${comparePrice}</span>` : ''}
+                ₹${price}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      this.suggestionsContainer.innerHTML = suggestionsHTML;
     },
 
     renderSuggestions: function(query) {
@@ -1202,6 +1450,15 @@
 
   window.performDesktopSearch = function() {
     DesktopSearch.performSearch();
+  };
+
+  window.toggleSearch = function() {
+    console.log('toggleSearch called');
+    if (DesktopSearch && DesktopSearch.showSearchInput) {
+      DesktopSearch.showSearchInput();
+    } else {
+      console.log('DesktopSearch not available');
+    }
   };
 
   window.openDesktopCart = function() {

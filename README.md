@@ -100,3 +100,4 @@ For help with this theme or Shopify in general:
 ## License
 
 This theme is created for educational purposes. Feel free to modify and use for your own store.
+# Updated Sat Aug 23 20:19:22 IST 2025

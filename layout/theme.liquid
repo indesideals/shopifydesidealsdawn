@@ -123,20 +123,19 @@
       min-height: 100vh;
     }
 
-    /* Desktop Top Banner - Fixed Continuous Scroll */
+    /* Desktop Top Banner - Elegant Scrolling Marquee */
     .desktop-top-banner {
-      background: var(--color-gradient-primary);
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
       color: white;
-      padding: 0.5rem 0;
+      padding: 0.75rem 0;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1001;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
       overflow: hidden;
+      display: flex;
+      align-items: center;
     }
 
     .desktop-banner-marquee {
@@ -146,21 +145,24 @@
     }
 
     .desktop-marquee-content {
-      display: inline-block;
-      animation: scroll 40s linear infinite;
+      display: inline-flex;
+      align-items: center;
+      animation: scroll 200s linear infinite;
       white-space: nowrap;
     }
 
     .desktop-marquee-content span {
-      margin-right: 120px;
+      margin-right: 60px;
       display: inline-block;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      opacity: 0.95;
+      transition: opacity 0.3s ease;
     }
 
-    /* Create seamless loop by duplicating content */
-    .desktop-marquee-content::before {
-      content: "🚚 FREE SHIPPING ABOVE ₹299 💳 CASH ON DELIVERY AVAILABLE 🔥 40% OFF SITE WIDE ✨ PREMIUM QUALITY GUARANTEED 🚚 FREE SHIPPING ABOVE ₹299 💳 CASH ON DELIVERY AVAILABLE 🔥 40% OFF SITE WIDE ✨ PREMIUM QUALITY GUARANTEED ";
-      margin-right: 120px;
-      display: inline-block;
+    .desktop-marquee-content span:hover {
+      opacity: 1;
     }
 
     @keyframes scroll {
@@ -444,6 +446,26 @@
     <div class="desktop-top-banner">
       <div class="desktop-banner-marquee">
         <div class="desktop-marquee-content">
+          <span>🚚 FREE SHIPPING ABOVE ₹299</span>
+          <span>💳 CASH ON DELIVERY AVAILABLE</span>
+          <span>🔥 40% OFF SITE WIDE</span>
+          <span>✨ PREMIUM QUALITY GUARANTEED</span>
+          <span>🚚 FREE SHIPPING ABOVE ₹299</span>
+          <span>💳 CASH ON DELIVERY AVAILABLE</span>
+          <span>🔥 40% OFF SITE WIDE</span>
+          <span>✨ PREMIUM QUALITY GUARANTEED</span>
+          <span>🚚 FREE SHIPPING ABOVE ₹299</span>
+          <span>💳 CASH ON DELIVERY AVAILABLE</span>
+          <span>🔥 40% OFF SITE WIDE</span>
+          <span>✨ PREMIUM QUALITY GUARANTEED</span>
+          <span>🚚 FREE SHIPPING ABOVE ₹299</span>
+          <span>💳 CASH ON DELIVERY AVAILABLE</span>
+          <span>🔥 40% OFF SITE WIDE</span>
+          <span>✨ PREMIUM QUALITY GUARANTEED</span>
+          <span>🚚 FREE SHIPPING ABOVE ₹299</span>
+          <span>💳 CASH ON DELIVERY AVAILABLE</span>
+          <span>🔥 40% OFF SITE WIDE</span>
+          <span>✨ PREMIUM QUALITY GUARANTEED</span>
           <span>🚚 FREE SHIPPING ABOVE ₹299</span>
           <span>💳 CASH ON DELIVERY AVAILABLE</span>
           <span>🔥 40% OFF SITE WIDE</span>

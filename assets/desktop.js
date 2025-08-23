@@ -1224,9 +1224,13 @@
     DesktopWishlist.toggle(productId, title, price, image, url);
   };
 
-  // Initialize desktop functionality
-  document.addEventListener('DOMContentLoaded', function() {
+  // Initialize desktop functionality - Show content immediately
+  function initializeDesktop() {
     console.log('🖥️ Desktop Experience Initialized');
+    
+    // Show content immediately
+    document.body.classList.add('desktop-ready');
+    document.body.style.visibility = 'visible';
     
     // Initialize all desktop modules
     DesktopCart.init();
@@ -1234,38 +1238,47 @@
     DesktopMenu.init();
     DesktopScrollEffects.init();
     DesktopWishlist.init();
-    
-    // Set desktop-specific classes
-    document.body.classList.add('desktop-ready');
-    
-    // Performance monitoring
-    if ('performance' in window) {
-      window.addEventListener('load', () => {
-        const loadTime = performance.now();
-        console.log(`Desktop page loaded in ${loadTime.toFixed(2)}ms`);
+  }
+
+  // Call initialization function
+  document.addEventListener('DOMContentLoaded', initializeDesktop);
+  
+  // Fallback - call immediately if DOM is already loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeDesktop);
+  } else {
+    initializeDesktop();
+  }
+  
+  // Performance monitoring
+  if ('performance' in window) {
+    window.addEventListener('load', () => {
+      const loadTime = performance.now();
+      console.log(`Desktop page loaded in ${loadTime.toFixed(2)}ms`);
+      
+      // Track Core Web Vitals
+      if ('PerformanceObserver' in window) {
+        const observer = new PerformanceObserver((entryList) => {
+          for (const entry of entryList.getEntries()) {
+            console.log(`Desktop ${entry.name}: ${entry.value.toFixed(2)}`);
+          }
+        });
         
-        // Track Core Web Vitals
-        if ('PerformanceObserver' in window) {
-          const observer = new PerformanceObserver((entryList) => {
-            for (const entry of entryList.getEntries()) {
-              console.log(`Desktop ${entry.name}: ${entry.value.toFixed(2)}`);
-            }
-          });
-          
-          observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
-        }
-      });
-    }
-    
-    // Make desktop objects globally accessible for debugging
-    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.search.includes('debug=true'))) {
-      window.DesktopCart = DesktopCart;
-      window.DesktopWishlist = DesktopWishlist;
-      window.DesktopUtils = DesktopUtils;
-      window.DesktopState = DesktopState;
-    }
-    
-    // Add smooth scrolling to all internal links
+        observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
+      }
+    });
+  }
+  
+  // Make desktop objects globally accessible for debugging
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.search.includes('debug=true'))) {
+    window.DesktopCart = DesktopCart;
+    window.DesktopWishlist = DesktopWishlist;
+    window.DesktopUtils = DesktopUtils;
+    window.DesktopState = DesktopState;
+  }
+  
+  // Add smooth scrolling to all internal links
+  document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();

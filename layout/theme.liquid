@@ -24,16 +24,17 @@
   {% endif %}
 {% endfor %}
 
-{% comment %} Determine final device type {% endcomment %}
+{% comment %} Determine final device type and render appropriate layout {% endcomment %}
 {% if force_mobile or is_mobile_agent %}
+  {% comment %} Mobile device detected {% endcomment %}
   {% render 'theme-mobile' %}
 {% else %}
-  {% render 'theme-desktop' %}
+  {% comment %} Desktop device detected {% endcomment %}
+  {% render 'theme-desktop' %}  
 {% endif %}
 
-{% comment %} 
-FALLBACK - If renders fail, show basic layout with device detection 
-{% endcomment %}
+{% comment %} END - No fallback HTML to prevent conflicts {% endcomment %}
+{% unless force_mobile or force_desktop or is_mobile_agent %}
 <!DOCTYPE html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
@@ -1462,3 +1463,4 @@ FALLBACK - If renders fail, show basic layout with device detection
     </script>
   </body>
 </html>
+{% endunless %}

@@ -46,15 +46,10 @@
   <style>
     /* Critical styles to prevent blank page */
     body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       margin: 0;
       padding: 0;
-      visibility: hidden;
       background: #ffffff;
-    }
-    body.desktop-ready { 
-      visibility: visible; 
-      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
     
     /* Critical header styles */
@@ -388,22 +383,7 @@
   <!-- DESKTOP-ONLY JavaScript - Load at end for better performance -->
   <script src="{{ 'desktop.js' | asset_url }}" defer></script>
   
-  <!-- Initialize desktop experience immediately -->
-  <script>
-    // Show page as soon as possible
-    document.addEventListener('DOMContentLoaded', function() {
-      document.body.classList.add('desktop-ready');
-    });
-    
-    // Fallback in case DOMContentLoaded already fired
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        document.body.classList.add('desktop-ready');
-      });
-    } else {
-      document.body.classList.add('desktop-ready');
-    }
-  </script>
+
 
 </body>
 </html>

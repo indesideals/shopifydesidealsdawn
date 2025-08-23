@@ -84,12 +84,9 @@
     }
   </style>
 
-  <!-- Load CSS files asynchronously for better performance -->
-  <link rel="preload" href="{{ 'base.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="{{ 'base.css' | asset_url }}"></noscript>
-  
-  <link rel="preload" href="{{ 'desktop.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="{{ 'desktop.css' | asset_url }}"></noscript>
+  <!-- Load CSS files synchronously for proper content display -->
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  {{ 'desktop.css' | asset_url | stylesheet_tag }}
   
   <style>
     /* Desktop-Only CSS Variables */

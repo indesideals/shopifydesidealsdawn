@@ -196,7 +196,7 @@
 .callout-icons {
   display: flex;
   gap: clamp(30px, 5vw, 60px);
-  align-items: center;
+  align-items: stretch;
   flex-wrap: wrap;
   justify-content: center;
   max-width: var(--container-max-width);
@@ -210,6 +210,8 @@
   align-items: center;
   gap: 12px;
   transition: transform 0.3s ease;
+  min-height: 100px;
+  justify-content: flex-start;
 }
 
 .callout-icon-item:hover {
@@ -244,6 +246,10 @@
   line-height: 1.4;
   margin: 0;
   white-space: pre-line;
+  min-height: 2.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Responsive Design - Viewport-aware */
@@ -616,7 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <circle cx="19" cy="18" r="2" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
-          <p class="icon-text">{{ section.settings.icon_1_text | default: "Fast Shipping" }}</p>
+          <p class="icon-text">{{ section.settings.icon_1_text | default: "Fast<br>Shipping" }}</p>
         </div>
         
         <div class="callout-icon-item">

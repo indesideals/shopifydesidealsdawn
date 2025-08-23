@@ -30,6 +30,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+  <!-- Shared Base CSS -->
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  
   <!-- DESKTOP-ONLY CSS -->
   {{ 'desktop.css' | asset_url | stylesheet_tag }}
   
@@ -77,7 +80,7 @@
       <div class="desktop-header-center">
         <a href="/" class="desktop-logo">
           {% if settings.logo %}
-            <img src="{{ settings.logo | image_url: width: 250 }}" alt="{{ shop.name }}" loading="eager">
+            <img src="{{ settings.logo | image_url: width: 150 }}" alt="{{ shop.name }}" loading="eager">
           {% else %}
             <span class="desktop-logo-text">{{ shop.name }}</span>
           {% endif %}

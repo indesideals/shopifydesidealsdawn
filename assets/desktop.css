@@ -108,7 +108,7 @@ p {
 }
 
 /* Desktop Top Banner */
-.top-banner {
+.desktop-top-banner, .top-banner {
   background: var(--desktop-gradient-primary);
   color: #fff;
   text-align: center;
@@ -132,6 +132,28 @@ p {
   overflow: hidden;
 }
 
+.desktop-banner-marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.desktop-marquee-content {
+  display: inline-block;
+  animation: desktopMarqueeScroll 60s linear infinite;
+  white-space: nowrap;
+}
+
+.desktop-marquee-content span {
+  margin-right: 60px;
+  font-weight: 600;
+}
+
+@keyframes desktopMarqueeScroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
 .marquee {
   white-space: nowrap;
   animation: scroll 100s linear infinite;
@@ -148,7 +170,7 @@ p {
 }
 
 /* Desktop Header */
-.header {
+.desktop-header, .header {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   color: var(--desktop-primary);
@@ -165,13 +187,13 @@ p {
   transition: var(--desktop-transition);
 }
 
-.header.scrolled {
+.desktop-header.scrolled, .header.scrolled {
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(20px);
   box-shadow: var(--desktop-shadow-md);
 }
 
-.header-content {
+.desktop-header-content, .header-content {
   max-width: var(--desktop-max-width);
   margin: 0 auto;
   padding: 0 var(--desktop-padding);
@@ -179,6 +201,302 @@ p {
   align-items: center;
   justify-content: space-between;
   position: relative;
+}
+
+/* Desktop Header Left Section */
+.desktop-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--desktop-space-lg);
+}
+
+.desktop-menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--desktop-primary);
+  padding: var(--desktop-space-sm);
+  border-radius: var(--desktop-border-radius);
+  transition: var(--desktop-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop-menu-toggle:hover {
+  background: rgba(99, 102, 241, 0.1);
+  transform: scale(1.05);
+}
+
+.desktop-main-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--desktop-space-lg);
+}
+
+.desktop-nav-link {
+  color: var(--desktop-primary);
+  text-decoration: none;
+  font-weight: 500;
+  padding: var(--desktop-space-sm) var(--desktop-space-md);
+  border-radius: var(--desktop-border-radius);
+  transition: var(--desktop-transition);
+}
+
+.desktop-nav-link:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--desktop-accent);
+}
+
+/* Desktop Header Center - Logo */
+.desktop-header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.desktop-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: var(--desktop-transition);
+}
+
+.desktop-logo img {
+  max-height: 50px;
+  width: auto;
+  transition: var(--desktop-transition);
+}
+
+.desktop-logo:hover img {
+  transform: scale(1.02);
+}
+
+.desktop-logo-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--desktop-primary);
+}
+
+/* Desktop Header Right Section */
+.desktop-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--desktop-space-lg);
+}
+
+.desktop-search-container {
+  position: relative;
+}
+
+.desktop-search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid var(--desktop-border);
+  border-radius: var(--desktop-border-radius-lg);
+  box-shadow: var(--desktop-shadow-lg);
+  margin-top: var(--desktop-space-xs);
+  z-index: 1000;
+  display: none;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.desktop-search-box {
+  display: flex;
+  align-items: center;
+  background: var(--desktop-bg-light);
+  border: 2px solid var(--desktop-border);
+  border-radius: var(--desktop-border-radius-lg);
+  overflow: hidden;
+  transition: var(--desktop-transition);
+}
+
+.desktop-search-box:focus-within {
+  border-color: var(--desktop-accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.desktop-search-input {
+  border: none;
+  outline: none;
+  padding: var(--desktop-space-sm) var(--desktop-space-md);
+  font-size: 0.9rem;
+  background: transparent;
+  width: 250px;
+  color: var(--desktop-text);
+}
+
+.desktop-search-submit {
+  background: var(--desktop-gradient-primary);
+  color: white;
+  border: none;
+  padding: var(--desktop-space-sm);
+  cursor: pointer;
+  transition: var(--desktop-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop-search-submit:hover {
+  background: var(--desktop-gradient-hover);
+}
+
+.desktop-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--desktop-space-md);
+}
+
+.desktop-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--desktop-space-xs);
+  color: var(--desktop-primary);
+  text-decoration: none;
+  padding: var(--desktop-space-sm);
+  border-radius: var(--desktop-border-radius);
+  transition: var(--desktop-transition);
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.desktop-action-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--desktop-accent);
+  transform: translateY(-1px);
+}
+
+.desktop-action-text {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.desktop-cart-count, .desktop-wishlist-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--desktop-error);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--desktop-border-radius-full);
+  min-width: 18px;
+  height: 18px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Desktop Side Menu */
+.desktop-side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.desktop-side-menu.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.desktop-menu-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.desktop-menu-panel {
+  position: absolute;
+  top: 0;
+  left: -350px;
+  width: 350px;
+  height: 100%;
+  background: white;
+  box-shadow: var(--desktop-shadow-xl);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.desktop-side-menu.active .desktop-menu-panel {
+  left: 0;
+}
+
+.desktop-menu-header {
+  padding: var(--desktop-space-xl);
+  border-bottom: 1px solid var(--desktop-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.desktop-menu-header h3 {
+  margin: 0;
+  color: var(--desktop-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.desktop-menu-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--desktop-text-light);
+  font-size: 1.5rem;
+  padding: var(--desktop-space-sm);
+  border-radius: 50%;
+  transition: var(--desktop-transition);
+}
+
+.desktop-menu-close:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.desktop-menu-nav {
+  padding: var(--desktop-space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--desktop-space-sm);
+}
+
+.desktop-menu-link {
+  color: var(--desktop-primary);
+  text-decoration: none;
+  padding: var(--desktop-space-md) var(--desktop-space-lg);
+  border-radius: var(--desktop-border-radius);
+  transition: var(--desktop-transition);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--desktop-space-sm);
+}
+
+.desktop-menu-link:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--desktop-accent);
+  transform: translateX(4px);
 }
 
 /* Desktop Header Left */
@@ -1147,6 +1465,19 @@ p {
     --desktop-padding: clamp(3rem, 1vw, 5rem);
     --desktop-section-padding: clamp(5rem, 8vw, 8rem);
   }
+}
+
+/* Desktop Main Content */
+.desktop-main {
+  min-height: calc(100vh - 140px); /* Account for header and top banner */
+  padding: var(--desktop-space-xl) 0;
+  margin-top: 140px; /* Space for fixed header + banner */
+}
+
+.desktop-main .desktop-container {
+  max-width: var(--desktop-max-width);
+  margin: 0 auto;
+  padding: 0 var(--desktop-padding);
 }
 
 /* Hide mobile elements on desktop */

@@ -53,7 +53,7 @@
     <link rel="manifest" href="{{ 'site.webmanifest' | asset_url }}">
     
     <!-- Device Detection Script - Load First -->
-    {{ 'device-detection.js' | asset_url | script_tag }}
+    <!-- Device detection removed to prevent infinite loops -->
     
     <title>
       {{ page_title }}

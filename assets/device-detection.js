@@ -75,10 +75,13 @@
     }
   };
   
-  // Initialize on page load
+  // Initialize on page load - DISABLED TO PREVENT INFINITE LOOPS
   document.addEventListener('DOMContentLoaded', function() {
-    const deviceType = ThemeRouter.enforceDeviceExperience();
-    console.log(`Device detected: ${deviceType}`);
+    const deviceType = DeviceDetector.getDeviceType();
+    console.log(`Device detected: ${deviceType} - Routing handled by theme.liquid`);
+    
+    // Set device class for styling only - NO REDIRECTS
+    document.body.classList.add(`device-${deviceType}`);
     
     // Dispatch custom event for other scripts
     window.dispatchEvent(new CustomEvent('device-detected', { 

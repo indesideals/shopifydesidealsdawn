@@ -821,10 +821,19 @@
 
     showSearchInput: function() {
       console.log('Showing search input...');
-      // Create search input if it doesn't exist
-      if (!this.searchInput) {
-        this.createSearchInput();
+      
+      // Remove any existing search container first
+      const existingContainer = document.getElementById('desktopSearchContainer');
+      if (existingContainer) {
+        existingContainer.remove();
       }
+      
+      // Reset search elements
+      this.searchInput = null;
+      this.suggestionsContainer = null;
+      
+      // Create fresh search input
+      this.createSearchInput();
       
       if (this.searchInput) {
         this.searchInput.style.display = 'block';
@@ -848,6 +857,9 @@
            // Store original logo HTML for restoration
            this.originalLogoHTML = logoArea.outerHTML;
            
+           // Hide the logo instead of removing it
+           logoArea.style.display = 'none';
+           
            // Create search input container
            const searchContainer = document.createElement('div');
            searchContainer.id = 'desktopSearchContainer';
@@ -868,11 +880,11 @@
                  // Create search input
            this.searchInput = document.createElement('input');
            this.searchInput.id = 'desktopSearchInput';
-           this.searchInput.type = 'search';
+           this.searchInput.type = 'text';
            this.searchInput.placeholder = 'Search products...';
            this.searchInput.style.cssText = `
              width: 100%;
-             padding: 0.5rem 1rem;
+             padding: 0.5rem 2.5rem 0.5rem 1rem;
              border: none;
              outline: none;
              font-family: 'Poppins', sans-serif;
@@ -904,6 +916,7 @@
       // Add close button
       const closeButton = document.createElement('button');
       closeButton.innerHTML = '✕';
+      closeButton.id = 'desktopSearchCloseButton';
       closeButton.style.cssText = `
         position: absolute;
         top: 50%;
@@ -917,8 +930,17 @@
         padding: 0.5rem;
         border-radius: 50%;
         transition: background-color 0.3s ease;
+        z-index: 1004;
       `;
-      closeButton.addEventListener('click', () => this.hideSearchInput());
+      
+      // Use a more reliable click handler
+      closeButton.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Close button clicked');
+        this.hideSearchInput();
+      };
+      
       closeButton.addEventListener('mouseenter', () => {
         closeButton.style.backgroundColor = '#f0f0f0';
       });
@@ -931,10 +953,9 @@
       searchContainer.appendChild(this.suggestionsContainer);
       searchContainer.appendChild(closeButton);
       
-      // Replace logo area with search container
+      // Add search container to header center
       const headerCenter = document.querySelector('.desktop-header-center');
       if (headerCenter) {
-        headerCenter.innerHTML = '';
         headerCenter.appendChild(searchContainer);
       }
       
@@ -944,14 +965,12 @@
       // Bind events
       this.searchInput.addEventListener('input', (e) => {
         const query = e.target.value.trim();
-        console.log('Search input:', query);
+        console.log('Search input changed:', query);
         
-        if (query.length >= 2) {
+        if (query.length >= 1) {
           this.showSuggestions();
-        } else if (query.length === 0) {
-          this.showAllProducts();
         } else {
-          this.hideSuggestions();
+          this.showAllProducts();
         }
       });
       this.searchInput.addEventListener('keydown', (e) => {
@@ -967,30 +986,50 @@
       });
 
       // Close on outside click
-      document.addEventListener('click', (e) => {
+      const outsideClickHandler = (e) => {
         if (!searchContainer.contains(e.target) && !e.target.closest('.desktop-search-toggle')) {
+          console.log('Outside click detected');
           this.hideSearchInput();
+          document.removeEventListener('click', outsideClickHandler);
         }
-      });
+      };
+      
+      // Add the event listener with a small delay to avoid immediate triggering
+      setTimeout(() => {
+        document.addEventListener('click', outsideClickHandler);
+      }, 100);
     },
 
     hideSearchInput: function() {
+      console.log('Hiding search input...');
+      
+      // Clear search input
       if (this.searchInput) {
-        this.searchInput.style.display = 'none';
         this.searchInput.value = '';
-        if (this.suggestionsContainer) {
-          this.suggestionsContainer.style.display = 'none';
-        }
       }
       
-      // Restore original logo
-      const headerCenter = document.querySelector('.desktop-header-center');
+      // Hide suggestions
+      if (this.suggestionsContainer) {
+        this.suggestionsContainer.style.display = 'none';
+      }
+      
+      // Show the logo again
+      const logoArea = document.querySelector('.desktop-logo');
+      if (logoArea) {
+        logoArea.style.display = 'block';
+        console.log('Logo shown again');
+      }
+      
+      // Remove search container
       const searchContainer = document.getElementById('desktopSearchContainer');
-      
-      if (headerCenter && searchContainer && this.originalLogoHTML) {
-        headerCenter.innerHTML = this.originalLogoHTML;
+      if (searchContainer) {
         searchContainer.remove();
+        console.log('Search container removed');
       }
+      
+      // Reset search elements
+      this.searchInput = null;
+      this.suggestionsContainer = null;
     },
 
     showAllProducts: function() {
@@ -1040,14 +1079,14 @@
       const query = this.searchInput.value.trim();
       console.log('Showing suggestions for:', query);
       
-      if (query.length < 2) {
-        this.hideSuggestions();
+      if (query.length < 1) {
+        this.showAllProducts();
         return;
       }
 
       // Show loading state
       this.suggestionsContainer.innerHTML = `
-        <div style="padding: 1rem; text-align: center; color: black;">Loading products...</div>
+        <div style="padding: 1rem; text-align: center; color: black;">Searching...</div>
       `;
       this.suggestionsContainer.style.display = 'block';
 
@@ -1056,13 +1095,19 @@
     },
 
     fetchProducts: function(query) {
+      console.log('Fetching products for query:', query);
+      
       fetch('/collections/all/products.json')
         .then(response => response.json())
         .then(data => {
           const products = data.products || [];
+          console.log('Total products found:', products.length);
+          
           const filtered = products.filter(product => 
             product.title.toLowerCase().includes(query.toLowerCase())
           );
+          
+          console.log('Filtered products:', filtered.length);
           this.displayProductSuggestions(filtered);
         })
         .catch(error => {

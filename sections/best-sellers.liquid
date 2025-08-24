@@ -433,7 +433,7 @@
 
 .best-sellers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 32px;
   padding: 0 20px;
   max-width: 1200px;
@@ -756,7 +756,7 @@
 
 @media (max-width: 1199px) and (min-width: 768px) {
   .best-sellers-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 28px;
   }
 }
@@ -778,8 +778,24 @@
   }
   
   .best-sellers-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 0 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .best-sellers-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .product-card {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+    min-width: 280px;
   }
   
   .product-image-container {

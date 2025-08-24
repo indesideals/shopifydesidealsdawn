@@ -103,30 +103,55 @@
 
     // Search function
     function toggleSearch() {
+      console.log('toggleSearch called');
       if (window.toggleSearch) {
         window.toggleSearch();
+      } else {
+        console.error('toggleSearch function not available');
       }
     }
 
     // Burger menu functions
     function toggleBurgerMenu() {
+      console.log('toggleBurgerMenu called');
       if (window.toggleBurgerMenu) {
         window.toggleBurgerMenu();
+      } else {
+        console.error('toggleBurgerMenu function not available');
       }
     }
 
     function closeBurgerMenu() {
+      console.log('closeBurgerMenu called');
       if (window.closeBurgerMenu) {
         window.closeBurgerMenu();
+      } else {
+        console.error('closeBurgerMenu function not available');
       }
     }
 
     // Cart functions
     function openDesktopCart() {
+      console.log('openDesktopCart called');
       if (window.openDesktopCart) {
         window.openDesktopCart();
+      } else {
+        console.error('openDesktopCart function not available');
       }
     }
+
+    // Wait for desktop.js to load
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Theme.liquid DOMContentLoaded');
+      
+      // Check if functions are available after a short delay
+      setTimeout(function() {
+        console.log('Checking function availability:');
+        console.log('toggleSearch:', typeof window.toggleSearch);
+        console.log('toggleBurgerMenu:', typeof window.toggleBurgerMenu);
+        console.log('openDesktopCart:', typeof window.openDesktopCart);
+      }, 1000);
+    });
   </script>
 
 </body>

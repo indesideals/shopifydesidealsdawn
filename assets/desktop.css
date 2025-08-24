@@ -34,7 +34,7 @@ body.desktop-experience {
 .desktop-top-banner {
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   color: white;
-  padding: 0.75rem 0;
+  padding: 0.4rem 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -43,6 +43,7 @@ body.desktop-experience {
   overflow: hidden;
   display: flex;
   align-items: center;
+  height: 32px;
 }
 
 .desktop-banner-marquee {
@@ -79,7 +80,7 @@ body.desktop-experience {
 /* Desktop Header */
 .desktop-header {
   position: fixed;
-  top: 44px;
+  top: 32px;
   left: 0;
   right: 0;
   z-index: 1000;
@@ -376,8 +377,8 @@ body.desktop-experience {
 
 /* Desktop Main Content */
 main {
-  padding-top: 100px; /* Banner + Header height */
-  min-height: calc(100vh - 100px);
+  padding-top: 92px; /* Banner + Header height */
+  min-height: calc(100vh - 92px);
 }
 
 /* Desktop Container */

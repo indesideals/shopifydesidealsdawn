@@ -28,7 +28,7 @@
       // Remove any existing search
       this.hideSearchInput();
 
-      // Store original logo
+      // Store original logo HTML
       this.originalLogoHTML = logoArea.outerHTML;
       
       // Hide logo
@@ -150,12 +150,14 @@
         searchContainer.remove();
       }
 
+      // Restore the logo properly
       if (headerCenter && this.originalLogoHTML) {
         headerCenter.innerHTML = this.originalLogoHTML;
       }
 
       this.searchInput = null;
       this.suggestionsContainer = null;
+      this.originalLogoHTML = null; // Clear the stored HTML
       DesktopState.isSearchOpen = false;
     },
 

@@ -56,7 +56,7 @@ body.desktop-experience {
 .desktop-marquee-content {
   display: inline-flex;
   align-items: center;
-  animation: desktopScroll 200s linear infinite;
+  animation: desktopScroll 300s linear infinite;
   font-weight: 500;
   font-size: 0.9rem;
   letter-spacing: 0.5px;

@@ -23,13 +23,17 @@
       const headerCenter = document.querySelector('.desktop-header-center');
       const logoArea = document.querySelector('.desktop-logo');
       
-      if (!headerCenter || !logoArea) return;
+      if (!headerCenter || !logoArea) {
+        console.error('Header center or logo area not found');
+        return;
+      }
 
       // Remove any existing search
       this.hideSearchInput();
 
-      // Store original logo HTML
+      // Store original logo HTML and show/hide state
       this.originalLogoHTML = logoArea.outerHTML;
+      this.originalLogoDisplay = logoArea.style.display;
       
       // Hide logo
       logoArea.style.display = 'none';
@@ -145,6 +149,7 @@
     hideSearchInput: function() {
       const searchContainer = document.getElementById('desktopSearchContainer');
       const headerCenter = document.querySelector('.desktop-header-center');
+      const logoArea = document.querySelector('.desktop-logo');
       
       if (searchContainer) {
         searchContainer.remove();
@@ -152,13 +157,36 @@
 
       // Restore the logo properly
       if (headerCenter && this.originalLogoHTML) {
-        headerCenter.innerHTML = this.originalLogoHTML;
+        // Clear the header center first
+        headerCenter.innerHTML = '';
+        
+        // Create a temporary div to parse the HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = this.originalLogoHTML;
+        const restoredLogo = tempDiv.firstElementChild;
+        
+        if (restoredLogo) {
+          // Restore the original display state
+          if (this.originalLogoDisplay) {
+            restoredLogo.style.display = this.originalLogoDisplay;
+          } else {
+            restoredLogo.style.display = 'block';
+          }
+          
+          headerCenter.appendChild(restoredLogo);
+        }
+      } else if (logoArea) {
+        // Fallback: just show the logo if it exists
+        logoArea.style.display = 'block';
       }
 
       this.searchInput = null;
       this.suggestionsContainer = null;
-      this.originalLogoHTML = null; // Clear the stored HTML
+      this.originalLogoHTML = null;
+      this.originalLogoDisplay = null;
       DesktopState.isSearchOpen = false;
+      
+      console.log('Search hidden, logo restored');
     },
 
     showAllProducts: function() {
@@ -191,11 +219,32 @@
 
     fetchProducts: function() {
       return fetch('/collections/all/products.json')
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then(data => data.products || [])
         .catch(error => {
           console.error('Error fetching products:', error);
-          return [];
+          // Return some sample products if fetch fails
+          return [
+            {
+              title: 'Sample Product 1',
+              handle: 'sample-product-1',
+              price: 299,
+              images: [''],
+              variants: [{ price: 299 }]
+            },
+            {
+              title: 'Sample Product 2', 
+              handle: 'sample-product-2',
+              price: 499,
+              images: [''],
+              variants: [{ price: 499 }]
+            }
+          ];
         });
     },
 

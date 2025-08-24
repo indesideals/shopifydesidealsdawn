@@ -634,8 +634,10 @@
     DesktopCart.addItem(productId, variantId, title, price, image, url);
   };
 
-  // Make DesktopCart available globally
+  // Make all objects available globally
   window.DesktopCart = DesktopCart;
+  window.DesktopMenu = DesktopMenu;
+  window.DesktopSearch = DesktopSearch;
 
   // Initialize desktop functionality
   document.addEventListener('DOMContentLoaded', function() {

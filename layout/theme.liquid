@@ -101,42 +101,42 @@
       }
     }
 
-    // Search function
+    // Search function - FIXED: Don't call window.toggleSearch to avoid recursion
     function toggleSearch() {
-      console.log('toggleSearch called');
-      if (window.toggleSearch) {
-        window.toggleSearch();
+      console.log('toggleSearch called - calling DesktopSearch.showSearchInput()');
+      if (window.DesktopSearch && window.DesktopSearch.showSearchInput) {
+        window.DesktopSearch.showSearchInput();
       } else {
-        console.error('toggleSearch function not available');
+        console.error('DesktopSearch not available');
       }
     }
 
-    // Burger menu functions
+    // Burger menu functions - FIXED: Don't call window.toggleBurgerMenu to avoid recursion
     function toggleBurgerMenu() {
-      console.log('toggleBurgerMenu called');
-      if (window.toggleBurgerMenu) {
-        window.toggleBurgerMenu();
+      console.log('toggleBurgerMenu called - calling DesktopMenu.toggleBurgerMenu()');
+      if (window.DesktopMenu && window.DesktopMenu.toggleBurgerMenu) {
+        window.DesktopMenu.toggleBurgerMenu();
       } else {
-        console.error('toggleBurgerMenu function not available');
+        console.error('DesktopMenu not available');
       }
     }
 
     function closeBurgerMenu() {
-      console.log('closeBurgerMenu called');
-      if (window.closeBurgerMenu) {
-        window.closeBurgerMenu();
+      console.log('closeBurgerMenu called - calling DesktopMenu.closeBurgerMenu()');
+      if (window.DesktopMenu && window.DesktopMenu.closeBurgerMenu) {
+        window.DesktopMenu.closeBurgerMenu();
       } else {
-        console.error('closeBurgerMenu function not available');
+        console.error('DesktopMenu not available');
       }
     }
 
-    // Cart functions
+    // Cart functions - FIXED: Don't call window.openDesktopCart to avoid recursion
     function openDesktopCart() {
-      console.log('openDesktopCart called');
-      if (window.openDesktopCart) {
-        window.openDesktopCart();
+      console.log('openDesktopCart called - calling DesktopCart.openDrawer()');
+      if (window.DesktopCart && window.DesktopCart.openDrawer) {
+        window.DesktopCart.openDrawer();
       } else {
-        console.error('openDesktopCart function not available');
+        console.error('DesktopCart not available');
       }
     }
 
@@ -147,9 +147,9 @@
       // Check if functions are available after a short delay
       setTimeout(function() {
         console.log('Checking function availability:');
-        console.log('toggleSearch:', typeof window.toggleSearch);
-        console.log('toggleBurgerMenu:', typeof window.toggleBurgerMenu);
-        console.log('openDesktopCart:', typeof window.openDesktopCart);
+        console.log('DesktopSearch:', typeof window.DesktopSearch);
+        console.log('DesktopMenu:', typeof window.DesktopMenu);
+        console.log('DesktopCart:', typeof window.DesktopCart);
       }, 1000);
     });
   </script>

@@ -41,9 +41,7 @@ build/
 *.map
 
 # Shopify theme files that shouldn't be versioned
-config/settings_data.json
 templates/*customer*
-templates/*gift_card*
 
 # Backup files
 *.backup

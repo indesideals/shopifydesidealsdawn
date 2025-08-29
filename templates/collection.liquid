@@ -69,21 +69,19 @@
             <div class="product-card" data-product-id="{{ product.id }}">
               <!-- Product Image -->
               <div class="product-image">
-                <a href="{{ product.url }}" class="product-link">
-                  {% if product.featured_image %}
-                    <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" 
-                         alt="{{ product.title }}" 
-                         loading="lazy"
-                         class="product-img">
-                  {% else %}
-                    <div class="product-placeholder">
-                      <svg width="60" height="60" viewBox="0 0 60 60" fill="currentColor">
-                        <path d="M30 5C16.2 5 5 16.2 5 30s11.2 25 25 25 25-11.2 25-25S43.8 5 30 5zm0 45C18.4 50 10 41.6 10 30S18.4 10 30 10s20 8.4 20 20-8.4 20-20 20z"/>
-                        <path d="M30 15c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15zm0 25c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z"/>
-                      </svg>
-                    </div>
-                  {% endif %}
-                </a>
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" 
+                       alt="{{ product.title }}" 
+                       loading="lazy"
+                       class="product-img">
+                {% else %}
+                  <div class="product-placeholder">
+                    <svg width="60" height="60" viewBox="0 0 60 60" fill="currentColor">
+                      <path d="M30 5C16.2 5 5 16.2 5 30s11.2 25 25 25 25-11.2 25-25S43.8 5 30 5zm0 45C18.4 50 10 41.6 10 30S18.4 10 30 10s20 8.4 20 20-8.4 20-20 20z"/>
+                      <path d="M30 15c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15zm0 25c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z"/>
+                    </svg>
+                  </div>
+                {% endif %}
                 
                 <!-- Quick Actions -->
                 <div class="product-actions">
@@ -117,11 +115,18 @@
               <!-- Product Info -->
               <div class="product-info">
                 <h3 class="product-title">
-                  <a href="{{ product.url }}">{{ product.title }}</a>
+                  {{ product.title }}
                 </h3>
                 
                 <!-- Product Rating -->
-                {% render 'product-rating', product: product %}
+                {% render 'product-data', product: product %}
+                <div class="product-rating">
+                  <div class="stars">
+                    {% render 'star-rating', rating: product_rating %}
+                  </div>
+                  <span class="rating-text">{{ product_rating }} stars</span>
+                  <span class="reviews-text">({{ product_review_count }} reviews)</span>
+                </div>
                 
                 <!-- Product Price -->
                 <div class="product-price">
@@ -133,7 +138,7 @@
                   <span class="discount-pill">40% OFF</span>
                 </div>
 
-                                <!-- Add to Cart Button - LOCALSTORAGE SOLUTION -->
+                <!-- Add to Cart Button - LOCALSTORAGE SOLUTION -->
                 <button type="button" class="add-to-cart-btn" 
                         onclick="addToCartDirect('{{ product.id }}', '{{ product.selected_or_first_available_variant.id }}', '{{ product.title | escape }}', '{{ product.price | divided_by: 100.0 }}', '{{ product.featured_image | image_url: width: 300 }}', '{{ product.url }}')"
                         data-product-id="{{ product.selected_or_first_available_variant.id }}">
@@ -143,6 +148,9 @@
                   Add to Cart
                 </button>
               </div>
+              
+              <!-- Clickable Overlay for PDP -->
+              <a href="{{ product.url }}" class="product-card-overlay" aria-label="View {{ product.title }} details"></a>
             </div>
           {% endfor %}
         </div>
@@ -241,33 +249,55 @@
 
 /* Collection Hero */
 .collection-hero {
-  background: var(--color-gradient-primary);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 3rem 0;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.collection-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.collection-hero-content {
+  position: relative;
+  z-index: 2;
 }
 
 .collection-title {
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .collection-description {
   font-size: 1.1rem;
-  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.95);
   max-width: 600px;
   margin: 0 auto 1rem;
   line-height: 1.6;
 }
 
 .collection-stats {
-  font-size: 0.9rem;
-  opacity: 0.8;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+  backdrop-filter: blur(10px);
 }
 
 /* Toolbar */
@@ -392,6 +422,30 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
+/* Clickable Overlay for Product Card */
+.product-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  cursor: pointer;
+  background: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.product-card-overlay:hover {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+/* Ensure action buttons and add to cart button are above overlay */
+.product-actions,
+.add-to-cart-btn {
+  position: relative;
+  z-index: 2;
+}
+
 .product-image {
   position: relative;
   height: 250px;
@@ -468,6 +522,7 @@
 
 .wishlist-btn.active svg {
   fill: white !important;
+  stroke: white !important;
 }
 
 .wishlist-btn:hover {
@@ -488,19 +543,19 @@
   position: absolute;
   top: 0.75rem;
   left: 0.75rem;
-  background: var(--color-gradient-primary);
+  background: #dc2626;
   color: white;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
   font-size: 0.72rem;
   font-weight: 700;
-  box-shadow: 0 6px 14px rgba(99,102,241,0.25);
+  box-shadow: 0 6px 14px rgba(220, 38, 38, 0.25);
 }
 
 /* Inline discount pill for list/grid info area */
 .discount-pill {
   display: inline-block;
-  background: var(--color-gradient-primary);
+  background: #dc2626;
   color: #fff;
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
@@ -525,17 +580,8 @@
   min-height: 2.4rem;
   display: flex;
   align-items: flex-start;
-}
-
-.product-title a {
-  text-decoration: none;
   color: #1f2937;
-  transition: color 0.3s ease;
   line-height: 1.2;
-}
-
-.product-title a:hover {
-  color: #6366f1;
 }
 
 /* Product Rating */
@@ -684,6 +730,13 @@
 @media (max-width: 768px) {
   .collection-title {
     font-size: 2rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .collection-stats {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
   }
   
   .toolbar-content {
@@ -897,22 +950,110 @@
 /* Responsive Quick View */
 @media (max-width: 768px) {
   .quick-view-content {
-    width: 95%;
-    max-height: 95vh;
+    width: 90%;
+    max-height: 80vh;
+    top: 10%;
+    transform: translateX(-50%);
+    border-radius: 16px;
   }
   
   .quick-view-body {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.5rem;
     padding: 1rem;
+  }
+  
+  .quick-view-image img {
+    max-height: 150px;
+    width: auto;
+  }
+  
+  .quick-view-title {
+    font-size: 1rem;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+  
+  .quick-view-description {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+  
+  .quick-view-price {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
   }
   
   .quick-view-actions {
     flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .quick-view-wishlist-btn,
+  .quick-view-cart-btn {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+  }
+  
+  .quick-view-link {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+  }
+  
+  .quick-view-close {
+    width: 30px;
+    height: 30px;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-view-content {
+    width: 85%;
+    max-height: 75vh;
+    top: 12.5%;
+    transform: translateX(-50%);
+    border-radius: 12px;
+  }
+  
+  .quick-view-body {
+    padding: 0.75rem;
+    gap: 0.4rem;
+  }
+  
+  .quick-view-image img {
+    max-height: 120px;
   }
   
   .quick-view-title {
-    font-size: 1.25rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .quick-view-description {
+    font-size: 0.75rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .quick-view-price {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .quick-view-wishlist-btn,
+  .quick-view-cart-btn,
+  .quick-view-link {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  
+  .quick-view-close {
+    width: 25px;
+    height: 25px;
+    top: 0.4rem;
+    right: 0.4rem;
   }
 }
 </style>

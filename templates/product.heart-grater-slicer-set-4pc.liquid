@@ -4,29 +4,31 @@
 {% endcomment %}
 
 {% comment %} MANUAL PRODUCT DATA - Direct assignment {% endcomment %}
-{% if product.handle == 'vegetable-cleaning-brush' %}
-  {% assign product_rating = 4.8 %}
-  {% assign product_review_count = 3221 %}
-  {% assign product_description = "🥕 Meet your veggie-scrub MVP. This carrot-shaped brush lifts mud and wax from potatoes, carrots, cucumbers, and fruit—fast and gentle. Keep peels (and nutrients) intact while getting a truly clean surface. ✨\n\n✋ Comfortable, non-slip grip. The ribbed body and thumb rest stay steady even with soapy hands. Control the pressure for firm veggies or softer produce. 🔒\n\n🚿 Hygienic and easy to clean. Rinse under the tap, give it a quick shake, and it dries fast—no lingering odors. Hang it up after use to keep your sink area tidy. 🧼🪝\n\n🍎 Small, cute, and versatile. Adds a pop of color by the sink and doubles for quick tasks—rinsing berries or scrubbing mini boards and colanders. Everyday prep made simpler. 🙌" %}
-  {% assign product_key_features = "🥕 Gentle, effective scrubbing: removes dirt & residue while keeping peels + nutrients intact
+{% if product.handle == 'heart-grater-slicer-set-4pc' %}
+  {% assign product_rating = 4.6 %}
+  {% assign product_review_count = 1567 %}
+  {% assign product_description = "💖 Add a touch of love to your kitchen with this adorable heart grater slicer set! Four essential kitchen tools in one beautiful set, each featuring a charming heart design. Perfect for grating cheese, slicing vegetables, and creating beautiful garnishes with style. ✨\n\n🎯 Complete 4-piece set. Includes a fine grater, coarse grater, slicer, and julienne cutter—all with heart-shaped designs. Each tool is designed for specific tasks, giving you professional results with a cute, aesthetic touch. Perfect for everyday cooking and special occasions! 🔒\n\n💪 Premium stainless steel. Rust-resistant, durable, and dishwasher safe. The sharp blades and grater surfaces provide consistent results every time. The heart design adds personality to your kitchen while maintaining professional functionality. 🧼\n\n🎨 Versatile and practical. Use for grating cheese, slicing vegetables, creating garnishes, or preparing ingredients for salads and dishes. The heart shapes make food prep more enjoyable and add a decorative touch to your kitchen. A must-have for anyone who loves cooking with style! 🙌" %}
+  {% assign product_key_features = "💖 4-piece set: fine grater, coarse grater, slicer, and julienne cutter
 
-✋ Ergonomic & non-slip: ribbed body + thumb rest for a secure hold
+🎯 Heart-shaped design: adds aesthetic appeal to your kitchen tools
 
-🚿 Hygienic & quick-clean: rinse under the tap; bristles dry fast ⏱️
+💪 Premium stainless steel: rust-resistant, durable, and dishwasher safe
 
-😊 Compact & cute: carrot look adds a fun pop to your sink; easy to store or hang 🧺
+🎨 Versatile use: perfect for cheese, vegetables, garnishes, and more
 
-🍎 Multi-use: veggies, fruit, and even scrub small boards" | split: "
-
-" %}
-  {% assign how_to_use = "Wet produce and the brush
-
-Scrub in light circular motions (adjust pressure for soft vs. firm produce)
-
-Rinse produce & brush, then hang to dry" | split: "
+🔒 Professional quality: sharp blades and grater surfaces for consistent results" | split: "
 
 " %}
-  {% assign faqs = "What can I use this brush for?|For scrubbing dirt/wax off potatoes, carrots, cucumbers, apples and other firm produce. It also helps refresh colanders and small cutting boards.,Is it safe for soft fruits like tomatoes?|Yes—use a light touch and short strokes. Increase pressure only for firmer skins.,What materials is it made of?|Food-safe PP (polypropylene) handle with nylon bristles. BPA-free.,Will the bristles damage peels or remove nutrients?|No—bristles are firm yet gentle. They lift surface grime while keeping peels (and nutrients) intact when used with light to moderate pressure." | split: "," %}
+  {% assign how_to_use = "Choose the appropriate tool for your task (fine grater, coarse grater, slicer, or julienne)
+
+Hold the tool securely and grate or slice your ingredients
+
+Use the heart-shaped design to create decorative garnishes
+
+Clean thoroughly after use" | split: "
+
+" %}
+  {% assign faqs = "What's included in the set?|The set includes 4 tools: fine grater, coarse grater, slicer, and julienne cutter, all with heart-shaped designs.,Are they dishwasher safe?|Yes, all tools are dishwasher safe for easy cleaning and maintenance.,What can I grate with these?|You can grate cheese, vegetables, chocolate, and even create decorative garnishes. Each tool is designed for specific tasks.,Are the blades sharp enough?|Yes, the stainless steel blades are professionally sharp and will provide consistent results for all your grating and slicing needs.,Can I use them for hard vegetables?|Yes, the tools are designed to handle various ingredients including hard vegetables like carrots and potatoes." | split: "," %}
 {% elsif product.handle == 'kitchen-sink-strainer-basket' %}
   {% assign product_rating = 4.8 %}
   {% assign product_review_count = 1247 %}
@@ -229,7 +231,7 @@ Rinse produce & brush, then hang to dry" | split: "
 
   <!-- Fun & Functional Section -->
   <div class="fun-functional-section">
-    <h2 class="fun-functional-title">Fun, Functional & Perfect for Every Kitchen</h2>
+    <h2 class="fun-functional-title">Cute Hearts, Perfect Cuts</h2>
   </div>
 
   <!-- Product Testimonials Section -->
@@ -237,66 +239,66 @@ Rinse produce & brush, then hang to dry" | split: "
     <div class="testimonials-slider">
       <div class="testimonials-container">
         {% if product.handle == 'vegetable-cleaning-brush' %}
-          <!-- 3 Hinglish Reviews -->
-          <div class="testimonial-card">
-            <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">Ye carrot brush bahut zabardast hai! Aloo aur gajar ko itna jaldi saaf kar deta hai. Cute design hai aur wet hands mein bhi slip nahi hota.</p>
-            <div class="testimonial-author">- Priya Sharma, Mumbai</div>
-          </div>
-          
-          <div class="testimonial-card">
-            <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">Roz ke cooking ke liye perfect hai! Bristles gentle hain lekin effective. Sink area ab kitna cute lagta hai is brush ke saath.</p>
-            <div class="testimonial-author">- Rajesh Kumar, Delhi</div>
-          </div>
-          
-          <div class="testimonial-card">
-            <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">Quality bahut acchi hai! Sabziyon se gandagi nikal jati hai bina damage kiye. Grip excellent hai aur jaldi dry ho jata hai.</p>
-            <div class="testimonial-author">- Meera Patel, Bangalore</div>
-          </div>
+                  <!-- 3 Hinglish Reviews -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">Ye heart grater set bahut zabardast hai! 4 tools ek saath mil jate hain aur heart design bahut cute hai. Quality excellent hai.</p>
+          <div class="testimonial-author">- Priya Sharma, Mumbai</div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">Daily cooking ke liye perfect hai! Cheese, vegetables sab kuch easily grate ho jata hai. Heart shapes bahut cute lagte hain.</p>
+          <div class="testimonial-author">- Rajesh Kumar, Delhi</div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">Quality bahut acchi hai! Stainless steel durable hai aur blades sharp hain. Kitchen mein aesthetic touch bhi mil gaya hai.</p>
+          <div class="testimonial-author">- Meera Patel, Bangalore</div>
+        </div>
           
           <!-- 3 Mixed Hinglish-English Reviews -->
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">Best kitchen investment hai! Works great on all types of produce. Carrot shape adorable hai aur functional bhi.</p>
+            <p class="testimonial-text">Best grater set hai! 4 tools perfect hai aur heart design adorable hai. Stainless steel quality superb hai.</p>
             <div class="testimonial-author">- Amit Singh, Chennai</div>
           </div>
           
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">Super effective aur cute hai! Cleans vegetables thoroughly while keeping nutrients intact. Highly recommend karta hun!</p>
+            <p class="testimonial-text">Super cute aur functional hai! Heart shapes bahut attractive hain aur grating perfect hai. Highly recommend!</p>
             <div class="testimonial-author">- Neha Gupta, Hyderabad</div>
           </div>
           
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">Daily kaam easy ho gaya hai! The bristles are firm yet gentle. Kitchen mein aesthetic touch bhi mil gaya hai.</p>
+            <p class="testimonial-text">Daily grating easy ho gaya hai! The heart design is cute and functional. Kitchen mein aesthetic look bhi mil gaya hai.</p>
             <div class="testimonial-author">- Karan Sethi, Pune</div>
           </div>
           
           <!-- 4 English Reviews -->
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">This brush is absolutely amazing! Perfect for cleaning all types of vegetables. The design is both functional and adorable.</p>
+            <p class="testimonial-text">This heart grater set is absolutely amazing! Perfect for all grating and slicing tasks. The heart design is incredibly cute.</p>
             <div class="testimonial-author">- Kavya Sharma, Kolkata</div>
           </div>
           
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">Excellent quality and very effective! Removes dirt without damaging the vegetables. The grip is perfect for wet hands.</p>
+            <p class="testimonial-text">Excellent quality and very functional! The 4-piece set covers all grating needs. The heart shapes add charm to my kitchen.</p>
             <div class="testimonial-author">- Arjun Malhotra, Ahmedabad</div>
           </div>
           
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">Love this product! Makes vegetable cleaning so much easier and faster. The carrot shape adds a fun touch to my kitchen.</p>
+            <p class="testimonial-text">Love this product! Makes grating so much more enjoyable. The heart design adds personality to my kitchen tools.</p>
             <div class="testimonial-author">- Priya Verma, Jaipur</div>
           </div>
           
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
-            <p class="testimonial-text">Perfect for everyday use! Gentle on vegetables but tough on dirt. Highly recommend for anyone who loves cooking.</p>
+            <p class="testimonial-text">Perfect for everyday use! Sharp blades with cute heart design. Highly recommend for anyone who loves cooking with style.</p>
             <div class="testimonial-author">- Rohan Singh, Lucknow</div>
           </div>
         {% elsif product.handle == 'kitchen-sink-strainer-basket' %}
@@ -511,9 +513,9 @@ Rinse produce & brush, then hang to dry" | split: "
     <h2 class="section-title">You Might Also Like</h2>
     <div class="products-carousel">
       <div class="products-container">
-        {% assign product1 = all_products['360-rotating-hook-hanger'] %}
-        {% assign product2 = all_products['4-in-1-stainless-steel-bowl-colander-grater'] %}
-        {% assign product3 = all_products['kitchen-sink-strainer-basket'] %}
+        {% assign product1 = all_products['oil-dispenser-silicone-brush-250ml'] %}
+        {% assign product2 = all_products['360-rotating-hook-hanger'] %}
+        {% assign product3 = all_products['4-in-1-stainless-steel-bowl-colander-grater'] %}
         {% assign product4 = all_products['mini-electric-food-chopper'] %}
         
         {% if product1.id != blank %}

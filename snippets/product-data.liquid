@@ -1,0 +1,33 @@
+{% comment %}
+  Simple Manual Product Data System
+  Usage: {% render 'product-data', product: product %}
+  You can manually set ratings, review counts, and descriptions for each product
+{% endcomment %}
+
+<!-- DEBUG: Show the actual product handle -->
+<!-- Product Handle: {{ product.handle }} -->
+
+{% comment %} MANUAL PRODUCT DATA - Edit these values for each product {% endcomment %}
+
+{% if product.handle == 'vegetable-cleaning-brush' %}
+  {% assign product_rating = 4.8 %}
+  {% assign product_review_count = 1856 %}
+  {% assign product_description = "Clean your vegetables thoroughly with this gentle yet effective cleaning brush. Perfect for removing dirt and debris from root vegetables, fruits, and other produce. The soft bristles ensure your vegetables remain undamaged while getting perfectly clean." %}
+  {% assign product_key_features = "Soft bristles for gentle cleaning,Effective dirt removal,Safe for all vegetables,Easy to clean and maintain,Ergonomic handle design" | split: "," %}
+{% elsif product.handle == 'kitchen-sink-strainer-basket' %}
+  {% assign product_rating = 4.8 %}
+  {% assign product_review_count = 1247 %}
+  {% assign product_description = "Keep your sink drain clean and clog-free with this easy-press kitchen sink strainer basket. Perfect for catching food particles and preventing plumbing issues. Features a convenient press-down design for easy cleaning." %}
+  {% assign product_key_features = "Easy-press design for simple cleaning,Fits most standard sink drains,Catches food particles effectively,Durable construction,Prevents drain clogs" | split: "," %}
+{% elsif product.handle == 'oil-dispenser-silicone-brush-250ml' %}
+  {% assign product_rating = 4.6 %}
+  {% assign product_review_count = 2453 %}
+  {% assign product_description = "Effortless oil control for perfect cooking! This premium oil dispenser with silicone brush gives you precise control over oil application. Perfect for greasing pans, applying marinades, and cooking with precision." %}
+  {% assign product_key_features = "250ml glass container with leak-proof seal,Food-grade silicone brush for precise application,Dishwasher safe and easy to clean,Perfect for greasing pans and applying marinades,Compact design fits any kitchen counter" | split: "," %}
+{% else %}
+  {% comment %} Default values for products not listed above {% endcomment %}
+  {% assign product_rating = 4.5 %}
+  {% assign product_review_count = 1500 %}
+  {% assign product_description = product.description %}
+  {% assign product_key_features = "Premium quality materials,Easy to use and maintain,Durable and long-lasting,Perfect for daily use" | split: "," %}
+{% endif %}

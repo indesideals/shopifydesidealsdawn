@@ -53,26 +53,28 @@
 /* Modern Dot Navigation */
 .hero-dots {
   position: absolute;
-  bottom: 20px;
+  bottom: 4px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 12px;
+  gap: 2px;
   z-index: 10;
 }
 
 .hero-dot {
-  width: 80px;
-  height: 6px;
+  width: 8px;
+  height: 1px;
   background: rgba(255, 255, 255, 0.2);
   border: none;
-  border-radius: 3px;
+  border-radius: 0.5px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
 }
+
+
 
 .hero-dot:hover {
   background: rgba(255, 255, 255, 0.5);
@@ -97,10 +99,10 @@
 /* Modern Pause Button */
 .hero-pause-btn {
   position: absolute;
-  top: 30px;
-  right: 30px;
-  width: 56px;
-  height: 56px;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -111,15 +113,10 @@
   justify-content: center;
   transition: all 0.3s ease;
   color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
   z-index: 10;
-  color: white;
 }
+
+
 
 .hero-pause-btn:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -137,8 +134,8 @@
 
 .hero-pause-btn .pause-icon,
 .hero-pause-btn .play-icon {
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
 }
 
 /* Modern Callout Section */
@@ -195,13 +192,12 @@
 
 .callout-icons {
   display: flex;
-  gap: clamp(30px, 5vw, 60px);
-  align-items: stretch;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: var(--container-max-width);
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0 var(--container-padding);
+  padding: 0 40px;
+  gap: 0;
 }
 
 .callout-icon-item {
@@ -212,6 +208,8 @@
   transition: transform 0.3s ease;
   min-height: 100px;
   justify-content: flex-start;
+  flex: 1;
+  text-align: center;
 }
 
 .callout-icon-item:hover {
@@ -270,24 +268,7 @@
 
 @media (max-width: 768px) {
   .hero-banner {
-    height: clamp(200px, 30vh, 300px);
-  }
-  
-  .hero-dots {
-    bottom: 15px;
-    gap: 8px;
-  }
-  
-  .hero-dot {
-    width: 40px;
-    height: 3px;
-  }
-  
-  .hero-pause-btn {
-    top: 15px;
-    right: 15px;
-    width: 40px;
-    height: 40px;
+    height: 200px;
   }
   
   .callout-section {
@@ -303,7 +284,14 @@
   }
   
   .callout-icons {
-    gap: clamp(20px, 3vw, 40px);
+    max-width: 100%;
+    padding: 0 20px;
+    gap: 0;
+  }
+  
+  .callout-icon-item {
+    flex: 1;
+    min-height: 80px;
   }
   
   .icon-wrapper {
@@ -314,7 +302,7 @@
 
 @media (max-width: 480px) {
   .hero-banner {
-    height: clamp(180px, 25vh, 250px);
+    height: 200px;
   }
   
   .callout-title {
@@ -322,7 +310,14 @@
   }
   
   .callout-icons {
-    gap: clamp(15px, 2.5vw, 30px);
+    max-width: 100%;
+    padding: 0 15px;
+    gap: 0;
+  }
+  
+  .callout-icon-item {
+    flex: 1;
+    min-height: 70px;
   }
   
   .icon-wrapper {
@@ -372,6 +367,7 @@
   {% if section.settings.hero_image_1 %}
     <div class="hero-slide active" 
          style="background-image: url('{{ section.settings.hero_image_1 | image_url: width: 1920, height: 320 }}');"
+         data-desktop-image="url('{{ section.settings.hero_image_1 | image_url: width: 1920, height: 320 }}')"
          data-mobile-image="{% if section.settings.hero_image_1_mobile %}{{ section.settings.hero_image_1_mobile | image_url: width: 768, height: 200 }}{% else %}{{ section.settings.hero_image_1 | image_url: width: 768, height: 200 }}{% endif %}"
          data-link="{{ section.settings.hero_link_1 }}">
       {% if section.settings.hero_link_1 %}
@@ -382,6 +378,7 @@
   {% if section.settings.hero_image_2 %}
     <div class="hero-slide" 
          style="background-image: url('{{ section.settings.hero_image_2 | image_url: width: 1920, height: 320 }}');"
+         data-desktop-image="url('{{ section.settings.hero_image_2 | image_url: width: 1920, height: 320 }}')"
          data-mobile-image="{% if section.settings.hero_image_2_mobile %}{{ section.settings.hero_image_2_mobile | image_url: width: 768, height: 200 }}{% else %}{{ section.settings.hero_image_2 | image_url: width: 768, height: 200 }}{% endif %}"
          data-link="{{ section.settings.hero_link_2 }}">
       {% if section.settings.hero_link_2 %}
@@ -392,6 +389,7 @@
   {% if section.settings.hero_image_3 %}
     <div class="hero-slide" 
          style="background-image: url('{{ section.settings.hero_image_3 | image_url: width: 1920, height: 320 }}');"
+         data-desktop-image="url('{{ section.settings.hero_image_3 | image_url: width: 1920, height: 320 }}')"
          data-mobile-image="{% if section.settings.hero_image_3_mobile %}{{ section.settings.hero_image_3_mobile | image_url: width: 768, height: 200 }}{% else %}{{ section.settings.hero_image_3 | image_url: width: 768, height: 200 }}{% endif %}"
          data-link="{{ section.settings.hero_link_3 }}">
       {% if section.settings.hero_link_3 %}
@@ -402,6 +400,7 @@
   {% if section.settings.hero_image_4 %}
     <div class="hero-slide" 
          style="background-image: url('{{ section.settings.hero_image_4 | image_url: width: 1920, height: 320 }}');"
+         data-desktop-image="url('{{ section.settings.hero_image_4 | image_url: width: 1920, height: 320 }}')"
          data-mobile-image="{% if section.settings.hero_image_4_mobile %}{{ section.settings.hero_image_4_mobile | image_url: width: 768, height: 200 }}{% else %}{{ section.settings.hero_image_4 | image_url: width: 768, height: 200 }}{% endif %}"
          data-link="{{ section.settings.hero_link_4 }}">
       {% if section.settings.hero_link_4 %}
@@ -475,17 +474,15 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Function to update background images based on screen size
   function updateBackgroundImages() {
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = window.innerWidth <= 768 || document.body.classList.contains('mobile-experience');
     slides.forEach(slide => {
       const mobileImage = slide.getAttribute('data-mobile-image');
+      const desktopImage = slide.getAttribute('data-desktop-image');
+      
       if (isMobile && mobileImage) {
         slide.style.backgroundImage = `url('${mobileImage}')`;
-      } else {
-        // Reset to desktop image
-        const desktopImage = slide.style.backgroundImage;
-        if (desktopImage) {
-          slide.style.backgroundImage = desktopImage;
-        }
+      } else if (desktopImage) {
+        slide.style.backgroundImage = desktopImage;
       }
     });
   }

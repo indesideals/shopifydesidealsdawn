@@ -246,6 +246,57 @@ body.desktop-experience {
   height: 22px;
 }
 
+/* Desktop Wishlist Button */
+.desktop-wishlist-btn {
+  background: none;
+  border: none;
+  color: var(--desktop-text);
+  cursor: pointer;
+  transition: var(--desktop-transition);
+  padding: 0.5rem;
+  border-radius: var(--desktop-border-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+}
+
+.desktop-wishlist-btn:hover {
+  color: var(--desktop-primary);
+  background: rgba(99, 102, 241, 0.1);
+  transform: translateY(-1px);
+}
+
+.desktop-wishlist-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.desktop-wishlist-count {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: var(--desktop-primary);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Desktop Cart Button */
 .desktop-cart-btn {
   background: none;
@@ -401,13 +452,8 @@ main {
   padding: 4rem 0;
 }
 
-/* Desktop Product Grid */
-.best-sellers-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
+/* Desktop Product Grid - Removed conflicting rule for best-sellers-grid */
+/* Best sellers grid is now handled in the section file with higher specificity */
 
 .product-card {
   background: white;

@@ -71,7 +71,14 @@
             </div>
             
             <!-- Star Rating and Reviews -->
-            {% render 'product-rating', product: section.settings.featured_product, rating: section.settings.manual_rating, review_count: section.settings.manual_review_count %}
+            {% render 'product-data', product: section.settings.featured_product %}
+            <div class="product-rating">
+              <div class="stars">
+                {% render 'star-rating', rating: product_rating %}
+              </div>
+              <span class="rating-text">{{ product_rating }}</span>
+              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+            </div>
             
             <div class="trending-product-price">
               {% assign selling_price = section.settings.featured_product.price %}
@@ -242,12 +249,15 @@ function updateTrendingWishlistButtons() {
 function updateTrendingWishlistButton(productId, isInWishlist) {
   const button = document.querySelector(`.trending-products-section [data-product-id="${productId}"]`);
   if (button) {
+    const svg = button.querySelector('svg');
     if (isInWishlist) {
       button.classList.add('active');
-      button.querySelector('svg').style.fill = '#ef4444';
+      svg.style.fill = 'white';
+      svg.style.stroke = 'white';
     } else {
       button.classList.remove('active');
-      button.querySelector('svg').style.fill = 'none';
+      svg.style.fill = 'none';
+      svg.style.stroke = 'currentColor';
     }
   }
 }
@@ -363,7 +373,7 @@ document.addEventListener('keydown', function(e) {
 }
 
 .trending-title {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 800;
   color: #1a202c;
   margin: 0 0 16px 0;
@@ -376,7 +386,7 @@ document.addEventListener('keydown', function(e) {
 }
 
 .trending-subtitle {
-  font-size: 16px;
+  font-size: 14px;
   color: #667eea;
   margin: 0;
   font-weight: 600;
@@ -516,14 +526,14 @@ document.addEventListener('keydown', function(e) {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: var(--color-gradient-primary);
+  background: #dc2626;
   color: white;
   padding: 8px 16px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 700;
   z-index: 2;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
   backdrop-filter: blur(10px);
 }
 
@@ -544,7 +554,7 @@ document.addEventListener('keydown', function(e) {
 }
 
 .trending-product-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #1a202c;
   margin: 0 0 8px 0;
@@ -578,6 +588,7 @@ document.addEventListener('keydown', function(e) {
 
 .trending-wishlist-btn.active svg {
   fill: white !important;
+  stroke: white !important;
 }
 
 .trending-wishlist-btn:hover {
@@ -611,17 +622,17 @@ document.addEventListener('keydown', function(e) {
 }
 
 .star.filled {
-  color: var(--color-accent);
+  color: #fbbf24;
 }
 
 .rating-text {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   color: #1a202c;
 }
 
 .reviews-text {
-  font-size: 12px;
+  font-size: 10px;
   color: #64748b;
   font-weight: 500;
 }
@@ -640,26 +651,26 @@ document.addEventListener('keydown', function(e) {
 }
 
 .trending-original-price {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #a0aec0;
   text-decoration: line-through;
   font-weight: 500;
 }
 
 .trending-sale-price {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--color-accent);
 }
 
 .sale-badge {
-  background: var(--color-gradient-primary);
+  background: #dc2626;
   color: white;
   padding: 6px 12px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 700;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
 }
 
 .trending-buttons {
@@ -782,36 +793,48 @@ document.addEventListener('keydown', function(e) {
 /* Mobile Styles */
 @media (max-width: 768px) {
   .trending-products-section {
-    padding: 60px 0;
+    padding: 40px 0;
   }
   
   .trending-header {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    text-align: center;
+    padding: 0 15px;
   }
   
   .trending-title {
-    font-size: 2.5rem;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  
+  .trending-subtitle {
+    text-align: center;
+    font-size: 12px;
   }
   
   .trending-product-container {
     flex-direction: column;
-    gap: 40px;
-    padding: 0 20px;
+    gap: 30px;
+    padding: 0 15px;
+    align-items: center;
   }
   
   .trending-product-left,
   .trending-product-right {
     max-width: 100%;
+    width: 100%;
   }
   
   .trending-product-title {
-    font-size: 2rem;
+    font-size: 1.4rem;
+    text-align: center;
   }
   
   /* Mobile Gallery Layout */
   .product-gallery {
     flex-direction: column;
     gap: 20px;
+    align-items: center;
   }
   
   /* Show thumbnails on mobile below main image */
@@ -827,61 +850,122 @@ document.addEventListener('keydown', function(e) {
   
   .main-image-container {
     order: 1; /* Keep main image on top */
+    width: 100%;
+    max-width: 400px;
   }
   
   .thumbnail-item {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
   }
   
   .main-product-image {
-    height: 400px;
+    height: 350px;
   }
   
   .trending-buttons {
     gap: 12px;
-  }
-  
-  .trending-add-to-cart-btn {
-    padding: 16px 24px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .trending-products-section {
-    padding: 40px 0;
-  }
-  
-  .trending-title {
-    font-size: 2rem;
-  }
-  
-  .trending-product-container {
-    gap: 32px;
-  }
-  
-  .trending-product-title {
-    font-size: 1.75rem;
-  }
-  
-  .main-product-image {
-    height: 300px;
-  }
-  
-  /* Smaller thumbnails on very small screens */
-  .thumbnail-item {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .trending-buttons {
-    gap: 12px;
+    align-items: center;
   }
   
   .trending-add-to-cart-btn {
     padding: 14px 20px;
     font-size: 13px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .trending-product-price {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .trending-product-header {
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .product-rating {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .trending-products-section {
+    padding: 30px 0;
+  }
+  
+  .trending-header {
+    margin-bottom: 25px;
+    padding: 0 10px;
+  }
+  
+  .trending-title {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  
+  .trending-subtitle {
+    text-align: center;
+    font-size: 11px;
+  }
+  
+  .trending-product-container {
+    gap: 25px;
+    padding: 0 10px;
+    align-items: center;
+  }
+  
+  .trending-product-title {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .main-image-container {
+    max-width: 350px;
+  }
+  
+  .main-product-image {
+    height: 280px;
+  }
+  
+  /* Smaller thumbnails on very small screens */
+  .thumbnail-item {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .trending-buttons {
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .trending-add-to-cart-btn {
+    padding: 12px 18px;
+    font-size: 12px;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  .trending-product-price {
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+  }
+  
+  .trending-product-header {
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .product-rating {
+    justify-content: center;
+  }
+  
+  .trending-wishlist-btn {
+    margin-left: 0;
   }
 }
 {% endstylesheet %}

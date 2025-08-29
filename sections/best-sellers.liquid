@@ -19,10 +19,10 @@
     <!-- Product Grid -->
     <div class="best-sellers-grid">
       {% if section.settings.product_1 %}
+        {% render 'product-data', product: section.settings.product_1 %}
         <div class="product-card" 
              data-price="{{ section.settings.product_1.price }}" 
-             data-name="{{ section.settings.product_1.title | downcase }}"
-             data-rating="{{ section.settings.rating_1 | default: 4.5 }}">
+             data-name="{{ section.settings.product_1.title | downcase }}">
           <div class="product-image-container">
             <a href="{{ section.settings.product_1.url }}">
               <img src="{{ section.settings.product_1.featured_image | image_url: width: 300 }}" 
@@ -61,7 +61,13 @@
               <a href="{{ section.settings.product_1.url }}">{{ section.settings.product_1.title }}</a>
             </h3>
             
-            {% render 'product-rating', product: section.settings.product_1 %}
+            <div class="product-rating">
+              <div class="stars">
+                {% render 'star-rating', rating: product_rating %}
+              </div>
+              <span class="rating-text">{{ product_rating }} stars</span>
+              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+            </div>
             
             <div class="product-price">
               {% assign selling_price = section.settings.product_1.price %}
@@ -87,10 +93,10 @@
       {% endif %}
       
       {% if section.settings.product_2 %}
+        {% render 'product-data', product: section.settings.product_2 %}
         <div class="product-card" 
              data-price="{{ section.settings.product_2.price }}" 
-             data-name="{{ section.settings.product_2.title | downcase }}"
-             data-rating="{{ section.settings.rating_2 | default: 4.2 }}">
+             data-name="{{ section.settings.product_2.title | downcase }}">
           <div class="product-image-container">
             <a href="{{ section.settings.product_2.url }}">
               <img src="{{ section.settings.product_2.featured_image | image_url: width: 300 }}" 
@@ -129,7 +135,13 @@
               <a href="{{ section.settings.product_2.url }}">{{ section.settings.product_2.title }}</a>
             </h3>
             
-            {% render 'product-rating', product: section.settings.product_2 %}
+            <div class="product-rating">
+              <div class="stars">
+                {% render 'star-rating', rating: product_rating %}
+              </div>
+              <span class="rating-text">{{ product_rating }} stars</span>
+              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+            </div>
             
             <div class="product-price">
               {% assign selling_price = section.settings.product_2.price %}
@@ -155,10 +167,10 @@
       {% endif %}
       
       {% if section.settings.product_3 %}
+        {% render 'product-data', product: section.settings.product_3 %}
         <div class="product-card" 
              data-price="{{ section.settings.product_3.price }}" 
-             data-name="{{ section.settings.product_3.title | downcase }}"
-             data-rating="{{ section.settings.rating_3 | default: 4.8 }}">
+             data-name="{{ section.settings.product_3.title | downcase }}">
           <div class="product-image-container">
             <a href="{{ section.settings.product_3.url }}">
               <img src="{{ section.settings.product_3.featured_image | image_url: width: 300 }}" 
@@ -197,7 +209,13 @@
               <a href="{{ section.settings.product_3.url }}">{{ section.settings.product_3.title }}</a>
             </h3>
             
-            {% render 'product-rating', product: section.settings.product_3 %}
+            <div class="product-rating">
+              <div class="stars">
+                {% render 'star-rating', rating: product_rating %}
+              </div>
+              <span class="rating-text">{{ product_rating }} stars</span>
+              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+            </div>
             
             <div class="product-price">
               {% assign selling_price = section.settings.product_3.price %}
@@ -223,10 +241,10 @@
       {% endif %}
       
       {% if section.settings.product_4 %}
+        {% render 'product-data', product: section.settings.product_4 %}
         <div class="product-card" 
              data-price="{{ section.settings.product_4.price }}" 
-             data-name="{{ section.settings.product_4.title | downcase }}"
-             data-rating="{{ section.settings.rating_4 | default: 4.3 }}">
+             data-name="{{ section.settings.product_4.title | downcase }}">
           <div class="product-image-container">
             <a href="{{ section.settings.product_4.url }}">
               <img src="{{ section.settings.product_4.featured_image | image_url: width: 300 }}" 
@@ -265,7 +283,13 @@
               <a href="{{ section.settings.product_4.url }}">{{ section.settings.product_4.title }}</a>
             </h3>
             
-            {% render 'product-rating', product: section.settings.product_4 %}
+            <div class="product-rating">
+              <div class="stars">
+                {% render 'star-rating', rating: product_rating %}
+              </div>
+              <span class="rating-text">{{ product_rating }} stars</span>
+              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+            </div>
             
             <div class="product-price">
               {% assign selling_price = section.settings.product_4.price %}
@@ -431,9 +455,10 @@
   background: rgba(241, 245, 249, 0.8);
 }
 
-.best-sellers-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+/* Desktop Grid - Always 4 columns */
+.best-sellers-section .best-sellers-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
   gap: 32px;
   padding: 0 20px;
   max-width: 1200px;
@@ -453,8 +478,6 @@
   height: 100%;
   position: relative;
 }
-
-
 
 .product-card:hover {
   transform: translateY(-8px);
@@ -484,7 +507,7 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background: var(--color-gradient-primary);
+  background: #dc2626;
   color: white;
   padding: 8px 16px;
   border-radius: 8px;
@@ -493,7 +516,7 @@
   font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
 }
 
 .best-sellers-section .product-card .product-info {
@@ -504,6 +527,7 @@
   justify-content: space-between;
   background: white;
   margin-top: 0 !important;
+  text-align: left !important;
 }
 
 .product-title {
@@ -513,6 +537,7 @@
   min-height: 2.4rem;
   display: flex;
   align-items: flex-start;
+  text-align: left;
 }
 
 .product-title a {
@@ -532,6 +557,7 @@
   margin-bottom: 0.75rem;
   flex-wrap: nowrap;
   min-height: 1.5rem;
+  justify-content: flex-start;
 }
 
 .stars {
@@ -586,6 +612,7 @@
   gap: 0.5rem;
   flex-wrap: wrap;
   min-height: 2rem;
+  justify-content: flex-start;
 }
 
 .original-price {
@@ -604,7 +631,7 @@
 /* Inline discount pill for list/grid info area */
 .discount-pill {
   display: inline-block;
-  background: var(--color-gradient-primary);
+  background: #dc2626;
   color: #fff;
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
@@ -640,7 +667,7 @@
 }
 
 .add-to-cart-btn:hover {
-  background: var(--color-gradient-accent);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
 }
@@ -727,6 +754,7 @@
 
 .wishlist-btn.active svg {
   fill: white !important;
+  stroke: white !important;
 }
 
 .wishlist-btn:hover {
@@ -746,21 +774,7 @@
   transform: scale(1.1);
 }
 
-/* Responsive Design */
-@media (min-width: 1200px) {
-  .best-sellers-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-  }
-}
-
-@media (max-width: 1199px) and (min-width: 768px) {
-  .best-sellers-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
-  }
-}
-
+/* Mobile Responsive Design */
 @media (max-width: 768px) {
   .best-sellers-section {
     padding: 60px 0;
@@ -769,7 +783,7 @@
   .best-sellers-header {
     flex-direction: column;
     gap: 24px;
-    text-align: center;
+    text-align: left;
     margin-bottom: 40px;
   }
   
@@ -777,8 +791,9 @@
     font-size: 2.5rem;
   }
   
-  .best-sellers-grid {
-    display: flex;
+  /* Mobile Horizontal Scroll Layout */
+  .best-sellers-section .best-sellers-grid {
+    display: flex !important;
     overflow-x: auto;
     gap: 20px;
     padding: 0 20px;
@@ -786,6 +801,8 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    /* Show 4 products at once on mobile */
+    scroll-padding: 0 20px;
   }
   
   .best-sellers-grid::-webkit-scrollbar {
@@ -793,9 +810,11 @@
   }
   
   .product-card {
-    flex: 0 0 280px;
+    flex: 0 0 calc(25vw - 25px); /* 4 products per row */
+    min-width: 250px; /* Minimum width */
+    max-width: 280px; /* Maximum width */
     scroll-snap-align: start;
-    min-width: 280px;
+    height: auto;
   }
   
   .product-image-container {
@@ -807,8 +826,15 @@
   }
   
   .best-sellers-section .product-card .product-info {
-    padding: 8px 16px 16px !important;
+    padding: 12px 16px 16px !important;
     margin-top: 0 !important;
+    text-align: left !important;
+  }
+  
+  /* Add scroll indicator */
+  .best-sellers-grid::after {
+    content: '';
+    flex: 0 0 20px;
   }
 }
 
@@ -821,9 +847,10 @@
     font-size: 2rem;
   }
   
-  .best-sellers-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .product-card {
+    flex: 0 0 calc(25vw - 20px); /* 4 products per row with smaller gap */
+    min-width: 220px;
+    max-width: 260px;
   }
   
   .product-image-container {
@@ -837,6 +864,7 @@
   .best-sellers-section .product-card .product-info {
     padding: 8px 12px 12px !important;
     margin-top: 0 !important;
+    text-align: left !important;
   }
   
   .sort-container {
@@ -1023,22 +1051,110 @@
 /* Responsive Quick View */
 @media (max-width: 768px) {
   .quick-view-content {
-    width: 95%;
-    max-height: 95vh;
+    width: 90%;
+    max-height: 80vh;
+    top: 10%;
+    transform: translateX(-50%);
+    border-radius: 16px;
   }
   
   .quick-view-body {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.5rem;
     padding: 1rem;
+  }
+  
+  .quick-view-image img {
+    max-height: 150px;
+    width: auto;
+  }
+  
+  .quick-view-title {
+    font-size: 1rem;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+  
+  .quick-view-description {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+  
+  .quick-view-price {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
   }
   
   .quick-view-actions {
     flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .quick-view-wishlist-btn,
+  .quick-view-cart-btn {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+  }
+  
+  .quick-view-link {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+  }
+  
+  .quick-view-close {
+    width: 30px;
+    height: 30px;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-view-content {
+    width: 85%;
+    max-height: 75vh;
+    top: 12.5%;
+    transform: translateX(-50%);
+    border-radius: 12px;
+  }
+  
+  .quick-view-body {
+    padding: 0.75rem;
+    gap: 0.4rem;
+  }
+  
+  .quick-view-image img {
+    max-height: 120px;
   }
   
   .quick-view-title {
-    font-size: 1.25rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .quick-view-description {
+    font-size: 0.75rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .quick-view-price {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .quick-view-wishlist-btn,
+  .quick-view-cart-btn,
+  .quick-view-link {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  
+  .quick-view-close {
+    width: 25px;
+    height: 25px;
+    top: 0.4rem;
+    right: 0.4rem;
   }
 }
 {% endstylesheet %}

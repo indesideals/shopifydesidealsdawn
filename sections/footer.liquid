@@ -1,4 +1,4 @@
-<footer style="background: var(--color-gradient-primary); color: white; padding: 2rem 0; margin-top: 0;">
+<footer style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white; padding: 2rem 0; margin-top: 0;">
   <div class="container">
     <div style="text-align: center;">
       <h2 style="font-size: 1.5rem; margin-bottom: 0.2rem; color: white;">{{ shop.name }}</h2>
@@ -7,10 +7,11 @@
              <!-- Newsletter -->
        <div style="max-width: 400px; margin: 0 auto 0.35rem;">
          <h3 style="margin-bottom: 0.15rem; font-size: 1.1rem;">Stay Updated!</h3>
-         <form style="display: flex; gap: 0.2rem; justify-content: center;">
-           <input type="email" placeholder="Enter your email" style="padding: 0.3rem 0.4rem; border: none; border-radius: 4px; flex: 1; max-width: 250px; font-size: 0.85rem;">
-           <button type="submit" style="padding: 0.3rem 0.6rem; background: white; color: #6366f1; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">Subscribe</button>
+         <form id="newsletter-form" style="display: flex; gap: 0.2rem; justify-content: center;" onsubmit="handleNewsletterSubmit(event)">
+           <input type="email" id="newsletter-email" placeholder="Enter your email" required style="padding: 0.3rem 0.4rem; border: none; border-radius: 4px; flex: 1; max-width: 250px; font-size: 0.85rem; color: #333; background: white;">
+           <button type="submit" id="newsletter-submit" style="padding: 0.3rem 0.6rem; background: white; color: #6366f1; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">Subscribe</button>
          </form>
+         <div id="newsletter-message" style="margin-top: 0.5rem; font-size: 0.8rem; display: none;"></div>
        </div>
       
              <!-- Links -->
@@ -82,10 +83,101 @@
   </div>
 </footer>
 
+<script>
+function handleNewsletterSubmit(event) {
+  event.preventDefault();
+  
+  const email = document.getElementById('newsletter-email').value;
+  const submitBtn = document.getElementById('newsletter-submit');
+  const messageDiv = document.getElementById('newsletter-message');
+  
+  // Validate email
+  if (!email || !email.includes('@')) {
+    showMessage('Please enter a valid email address.', 'error');
+    return;
+  }
+  
+  // Show loading state
+  submitBtn.textContent = 'Subscribing...';
+  submitBtn.disabled = true;
+  
+  // Save to localStorage for now (you can integrate with Shopify API later)
+  const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
+  
+  if (subscribers.includes(email)) {
+    showMessage('You are already subscribed!', 'info');
+  } else {
+    subscribers.push(email);
+    localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribers));
+    showMessage('Thank you for subscribing! You\'ll receive updates soon.', 'success');
+    document.getElementById('newsletter-form').reset();
+  }
+  
+  // Reset button
+  submitBtn.textContent = 'Subscribe';
+  submitBtn.disabled = false;
+}
+
+function showMessage(message, type) {
+  const messageDiv = document.getElementById('newsletter-message');
+  messageDiv.textContent = message;
+  messageDiv.style.display = 'block';
+  
+  // Set color based on message type
+  switch(type) {
+    case 'success':
+      messageDiv.style.color = '#10b981';
+      break;
+    case 'error':
+      messageDiv.style.color = '#ef4444';
+      break;
+    case 'info':
+      messageDiv.style.color = '#3b82f6';
+      break;
+    default:
+      messageDiv.style.color = 'white';
+  }
+  
+  // Hide message after 5 seconds
+  setTimeout(() => {
+    messageDiv.style.display = 'none';
+  }, 5000);
+}
+
+// Optional: Send to Shopify Admin (requires additional setup)
+function sendToShopify(email) {
+  // This would require setting up a Shopify app or webhook
+  // For now, we'll just log it
+  console.log('Newsletter subscription:', email);
+  
+  // You could also send to your email or integrate with services like:
+  // - Mailchimp
+  // - ConvertKit
+  // - Shopify's customer tags
+  // - Google Sheets
+}
+</script>
+
 {% schema %}
 {
   "name": "Simple Footer",
   "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter Settings"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Stay Updated!"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Placeholder",
+      "default": "Enter your email"
+    },
     {
       "type": "header",
       "content": "Social Media Links"

@@ -901,12 +901,15 @@ function addToWishlistViaStorage(productId, title, price, image, url) {
 function updateWishlistButton(productId, isInWishlist) {
   const button = document.querySelector(`[onclick*="${productId}"]`);
   if (button) {
+    const svg = button.querySelector('svg');
     if (isInWishlist) {
       button.classList.add('active');
-      button.querySelector('svg').style.fill = '#ef4444';
+      svg.style.fill = 'white';
+      svg.style.stroke = 'white';
     } else {
       button.classList.remove('active');
-      button.querySelector('svg').style.fill = 'none';
+      svg.style.fill = 'none';
+      svg.style.stroke = 'currentColor';
     }
   }
 }

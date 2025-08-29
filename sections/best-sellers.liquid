@@ -1208,7 +1208,7 @@ function addToWishlist(productId, title, price, image, url) {
   {% else %}
     console.log('Customer not logged in, redirecting to login');
     // Redirect to login page with return URL
-    window.location.href = '/account/login?return_url=' + encodeURIComponent(window.location.pathname);
+    window.location.href = 'https://shopify.com/77733855444/account?return_url=' + encodeURIComponent(window.location.pathname);
   {% endif %}
 }
 

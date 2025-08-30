@@ -2739,9 +2739,14 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize reviews - hide additional reviews and set default sort
   const reviews = document.querySelectorAll('.review-card');
+  console.log('Found reviews:', reviews.length);
+  
   reviews.forEach((review, index) => {
     if (index >= 4) {
       review.classList.add('hidden');
+      console.log('Hiding review', index);
+    } else {
+      console.log('Showing review', index);
     }
   });
   
@@ -2749,10 +2754,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const sortSelect = document.getElementById('sort-select');
   if (sortSelect) {
     sortSelect.value = 'newest';
-    sortReviews('newest', sortSelect);
+    // Don't call sortReviews during initialization to prevent errors
   }
   
-  updateShowMoreButton();
+  // Only call updateShowMoreButton if reviews exist
+  if (reviews.length > 0) {
+    updateShowMoreButton();
+  }
   
 
   
@@ -2898,10 +2906,12 @@ function updateTestimonialsDisplay() {
     const remaining = totalReviews - reviewsShown;
     const btn = document.querySelector('.show-more-btn');
     
-    if (remaining > 0) {
-      btn.style.display = 'flex';
-    } else {
-      btn.style.display = 'none';
+    if (btn) {
+      if (remaining > 0) {
+        btn.style.display = 'flex';
+      } else {
+        btn.style.display = 'none';
+      }
     }
   }
   

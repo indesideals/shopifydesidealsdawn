@@ -2724,12 +2724,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize reviews - hide additional reviews and set default sort
   const reviews = document.querySelectorAll('.review-card');
   console.log('Found reviews:', reviews.length);
+  console.log('Reviews elements:', reviews);
   
   if (reviews.length > 0) {
     totalReviews = reviews.length;
     console.log('Total reviews set to:', totalReviews);
     
     reviews.forEach((review, index) => {
+      console.log(`Review ${index}:`, review);
+      console.log(`Review ${index} classes:`, review.className);
+      console.log(`Review ${index} hidden:`, review.classList.contains('hidden'));
+      
       if (index >= 5) {
         review.classList.add('hidden');
         console.log('Hiding review', index);
@@ -2737,6 +2742,8 @@ document.addEventListener('DOMContentLoaded', function() {
         review.classList.remove('hidden');
         console.log('Showing review', index);
       }
+      
+      console.log(`After change - Review ${index} hidden:`, review.classList.contains('hidden'));
     });
     
     // Set default sort to newest first
@@ -2746,12 +2753,11 @@ document.addEventListener('DOMContentLoaded', function() {
       // Don't call sortReviews during initialization to prevent errors
     }
     
-    // Only call updateShowMoreButton if reviews exist
-    if (reviews.length > 0) {
-      updateShowMoreButton();
-    }
+    // Don't call updateShowMoreButton during initialization to prevent errors
+    // It will be called later when needed
   } else {
     console.log('No reviews found!');
+    console.log('Document body:', document.body.innerHTML.substring(0, 1000));
   }
   
 

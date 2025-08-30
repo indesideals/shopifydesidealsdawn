@@ -1,23 +1,31 @@
-
 {% comment %}
   Clean Product Template - Using Simple Manual System
   Manual star ratings and product data that you can control
 {% endcomment %}
 
 {% comment %} MANUAL PRODUCT DATA - Direct assignment {% endcomment %}
-{% if product.handle == 'oil-dispenser-silicone-brush-250ml' %}
-  {% assign product_rating = 4.6 %}
-  {% assign product_review_count = 2453 %}
-  {% assign product_description = "Effortless oil control for perfect cooking! This premium oil dispenser with silicone brush gives you precise control over oil application. Perfect for greasing pans, applying marinades, and cooking with precision." %}
-  {% assign product_key_features = "250ml glass container with leak-proof seal,Food-grade silicone brush for precise application,Dishwasher safe and easy to clean,Perfect for greasing pans and applying marinades,Compact design fits any kitchen counter" | split: "," %}
-  {% assign how_to_use = "Fill with your preferred oil,Press brush to dispense oil,Apply evenly to pans or food,Clean brush after use" | split: "," %}
-  {% assign faqs = "What oils can I use?|Any cooking oil including olive, vegetable, or coconut oil.,Is it dishwasher safe?|Yes, both container and brush are dishwasher safe.,How much oil does it hold?|250ml capacity for multiple uses." | split: "," %}
-{% elsif product.handle == 'vegetable-cleaning-brush' %}
+{% if product.handle == 'vegetable-cleaning-brush' %}
   {% assign product_rating = 4.8 %}
   {% assign product_review_count = 3221 %}
   {% assign product_description = "🥕 Meet your veggie-scrub MVP. This carrot-shaped brush lifts mud and wax from potatoes, carrots, cucumbers, and fruit—fast and gentle. Keep peels (and nutrients) intact while getting a truly clean surface. ✨\n\n✋ Comfortable, non-slip grip. The ribbed body and thumb rest stay steady even with soapy hands. Control the pressure for firm veggies or softer produce. 🔒\n\n🚿 Hygienic and easy to clean. Rinse under the tap, give it a quick shake, and it dries fast—no lingering odors. Hang it up after use to keep your sink area tidy. 🧼🪝\n\n🍎 Small, cute, and versatile. Adds a pop of color by the sink and doubles for quick tasks—rinsing berries or scrubbing mini boards and colanders. Everyday prep made simpler. 🙌" %}
-  {% assign product_key_features = "🥕 Gentle, effective scrubbing: removes dirt & residue while keeping peels + nutrients intact\n\n✋ Ergonomic & non-slip: ribbed body + thumb rest for a secure hold\n\n🚿 Hygienic & quick-clean: rinse under the tap; bristles dry fast ⏱️\n\n😊 Compact & cute: carrot look adds a fun pop to your sink; easy to store or hang 🧺\n\n🍎 Multi-use: veggies, fruit, and even scrub small boards" | split: "\n\n" %}
-  {% assign how_to_use = "Wet produce and the brush\n\nScrub in light circular motions (adjust pressure for soft vs. firm produce)\n\nRinse produce & brush, then hang to dry" | split: "\n\n" %}
+  {% assign product_key_features = "🥕 Gentle, effective scrubbing: removes dirt & residue while keeping peels + nutrients intact
+
+✋ Ergonomic & non-slip: ribbed body + thumb rest for a secure hold
+
+🚿 Hygienic & quick-clean: rinse under the tap; bristles dry fast ⏱️
+
+😊 Compact & cute: carrot look adds a fun pop to your sink; easy to store or hang 🧺
+
+🍎 Multi-use: veggies, fruit, and even scrub small boards" | split: "
+
+" %}
+  {% assign how_to_use = "Wet produce and the brush
+
+Scrub in light circular motions (adjust pressure for soft vs. firm produce)
+
+Rinse produce & brush, then hang to dry" | split: "
+
+" %}
   {% assign faqs = "What can I use this brush for?|For scrubbing dirt/wax off potatoes, carrots, cucumbers, apples and other firm produce. It also helps refresh colanders and small cutting boards.,Is it safe for soft fruits like tomatoes?|Yes—use a light touch and short strokes. Increase pressure only for firmer skins.,What materials is it made of?|Food-safe PP (polypropylene) handle with nylon bristles. BPA-free.,Will the bristles damage peels or remove nutrients?|No—bristles are firm yet gentle. They lift surface grime while keeping peels (and nutrients) intact when used with light to moderate pressure." | split: "," %}
 {% elsif product.handle == 'kitchen-sink-strainer-basket' %}
   {% assign product_rating = 4.8 %}
@@ -26,6 +34,13 @@
   {% assign product_key_features = "Easy-press design for simple cleaning,Fits most standard sink drains,Catches food particles effectively,Durable construction,Prevents drain clogs" | split: "," %}
   {% assign how_to_use = "Place in sink drain,Press down to secure,Clean regularly,Remove and rinse as needed" | split: "," %}
   {% assign faqs = "What size sink does this fit?|Fits most standard kitchen sink drains.,How do I clean it?|Simply remove and rinse under running water.,Is it dishwasher safe?|Yes, it's dishwasher safe for easy cleaning." | split: "," %}
+{% elsif product.handle == 'oil-dispenser-silicone-brush-250ml' %}
+  {% assign product_rating = 4.6 %}
+  {% assign product_review_count = 2453 %}
+  {% assign product_description = "Effortless oil control for perfect cooking! This premium oil dispenser with silicone brush gives you precise control over oil application. Perfect for greasing pans, applying marinades, and cooking with precision." %}
+  {% assign product_key_features = "250ml glass container with leak-proof seal,Food-grade silicone brush for precise application,Dishwasher safe and easy to clean,Perfect for greasing pans and applying marinades,Compact design fits any kitchen counter" | split: "," %}
+  {% assign how_to_use = "Fill with your preferred oil,Press brush to dispense oil,Apply evenly to pans or food,Clean brush after use" | split: "," %}
+  {% assign faqs = "What oils can I use?|Any cooking oil including olive, vegetable, or coconut oil.,Is it dishwasher safe?|Yes, both container and brush are dishwasher safe.,How much oil does it hold?|250ml capacity for multiple uses." | split: "," %}
 {% else %}
   {% assign product_rating = 4.5 %}
   {% assign product_review_count = 1500 %}
@@ -773,41 +788,6 @@
         </div>
       </div>
       
-      <div class="review-card" data-rating="5" data-date="2023-12-20" data-helpful="11">
-        <div class="review-header">
-          <div class="reviewer-info">
-            <div class="reviewer-avatar">
-              <span>PK</span>
-            </div>
-            <div class="reviewer-details">
-              <span class="reviewer-name">Priya Kumar</span>
-              <span class="reviewer-location">Hyderabad, Telangana</span>
-            </div>
-          </div>
-          <div class="review-rating">
-            <span class="review-stars">★★★★★</span>
-            <span class="review-date">3 weeks ago</span>
-          </div>
-        </div>
-        <p class="review-text">"Excellent oil dispenser! The silicone brush gives perfect control for greasing pans and applying marinades. The design is functional and beautiful. Great customer support experience too!"</p>
-        <div class="review-footer">
-          <span class="verified-badge">
-            <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            Verified Buyer
-          </span>
-          <div class="review-helpful">
-            <button class="helpful-btn" onclick="markHelpful(this, 11)">
-              <svg class="helpful-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 0 012-2h2.5"/>
-              </svg>
-              Helpful (11)
-            </button>
-          </div>
-        </div>
-      </div>
-      
       <!-- Additional Reviews (Hidden by default) -->
       <div class="review-card hidden" data-rating="5" data-date="2024-01-03" data-helpful="9">
         <div class="review-header">
@@ -825,7 +805,7 @@
             <span class="review-date">2 weeks ago</span>
           </div>
         </div>
-        <p class="review-text">"Amazing oil dispenser! The silicone brush gives perfect control for oil application. Love the glass container design and the fact that it's easy to clean. Customer service was very helpful with my order."</p>
+        <p class="review-text">"Amazing product! The brush cleans vegetables so effectively. Love the ergonomic design and the fact that it dries quickly. Customer service was very helpful with my order."</p>
         <div class="review-footer">
           <span class="verified-badge">
             <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -860,7 +840,7 @@
             <span class="review-date">2 weeks ago</span>
           </div>
         </div>
-        <p class="review-text">"Good quality oil dispenser for daily use. Applies oil effectively and the silicone brush is comfortable to use. Fast delivery and good packaging. Satisfied with the purchase."</p>
+        <p class="review-text">"Good quality brush for daily use. Cleans vegetables effectively and the grip is comfortable. Fast delivery and good packaging. Satisfied with the purchase."</p>
         <div class="review-footer">
           <span class="verified-badge">
             <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -895,7 +875,7 @@
             <span class="review-date">3 weeks ago</span>
           </div>
         </div>
-        <p class="review-text">"Excellent product! The brush is perfect for cleaning all types of vegetables. The design is cute and functional. Great customer support experience too!"</p>
+        <p class="review-text">"Excellent oil dispenser! The silicone brush gives perfect control for greasing pans and applying marinades. The design is functional and beautiful. Great customer support experience too!"</p>
         <div class="review-footer">
           <span class="verified-badge">
             <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -2137,9 +2117,6 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
 }
 
 .review-card::before {
@@ -2403,14 +2380,7 @@
 
 /* Hidden Reviews */
 .review-card.hidden {
-  display: none !important;
-}
-
-/* Debug: Force show all reviews for now */
-.review-card {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  display: none;
 }
 
 /* Related Products */
@@ -2767,28 +2737,19 @@ document.addEventListener('DOMContentLoaded', function() {
   slides = document.querySelectorAll('.thumbnail');
   mainImage = document.getElementById('main-product-image');
   
-  // Initialize reviews - show first 5 reviews
+  // Initialize reviews - hide additional reviews and set default sort
   const reviews = document.querySelectorAll('.review-card');
-  console.log('Found reviews:', reviews.length);
-  
   reviews.forEach((review, index) => {
-    if (index < 5) {
-      review.classList.remove('hidden');
-      console.log('Showing review', index);
-    } else {
+    if (index >= 4) {
       review.classList.add('hidden');
-      console.log('Hiding review', index);
     }
   });
-  
-  totalReviews = reviews.length;
-  console.log('Total reviews:', totalReviews);
   
   // Set default sort to newest first
   const sortSelect = document.getElementById('sort-select');
   if (sortSelect) {
     sortSelect.value = 'newest';
-    // Don't call sortReviews initially, just show reviews
+    sortReviews('newest', sortSelect);
   }
   
   updateShowMoreButton();
@@ -2877,8 +2838,8 @@ function updateTestimonialsDisplay() {
 // Direct add to cart function
   // Reviews functionality
   let currentSort = 'newest';
-  let reviewsShown = 5; // Start with 5 visible reviews
-  let totalReviews = 0; // Computed dynamically
+  let reviewsShown = 4; // Start with 4 visible reviews
+  const totalReviews = 14; // Total 14 reviews (4 visible + 10 hidden)
   
   function sortReviews(sortType, selectElement) {
     currentSort = sortType;
@@ -2906,22 +2867,22 @@ function updateTestimonialsDisplay() {
     // Re-append sorted reviews
     reviews.forEach(review => container.appendChild(review));
     
-    // Show only first 5 reviews
+    // Show only first 4 reviews
     reviews.forEach((review, index) => {
-      if (index < 5) {
+      if (index < 4) {
         review.classList.remove('hidden');
       } else {
         review.classList.add('hidden');
       }
     });
     
-    reviewsShown = 5;
+    reviewsShown = 4;
     updateShowMoreButton();
   }
   
   function showMoreReviews() {
     const reviews = document.querySelectorAll('.review-card');
-    const nextBatch = Math.min(reviewsShown + 5, totalReviews);
+    const nextBatch = Math.min(reviewsShown + 4, totalReviews);
     
     for (let i = reviewsShown; i < nextBatch; i++) {
       if (reviews[i]) {

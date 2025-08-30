@@ -2855,7 +2855,7 @@ function updateTestimonialsDisplay() {
     });
     
     reviewsShown = 4;
-    updateShowMoreButton();
+    // Don't call updateShowMoreButton here to prevent errors
   }
   
   function showMoreReviews() {
@@ -2876,9 +2876,9 @@ function updateTestimonialsDisplay() {
     const remaining = totalReviews - reviewsShown;
     const btn = document.querySelector('.show-more-btn');
     
-    if (remaining > 0) {
+    if (btn && remaining > 0) {
       btn.style.display = 'flex';
-    } else {
+    } else if (btn) {
       btn.style.display = 'none';
     }
   }

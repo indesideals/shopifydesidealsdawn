@@ -2137,6 +2137,9 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .review-card::before {
@@ -2400,7 +2403,14 @@
 
 /* Hidden Reviews */
 .review-card.hidden {
-  display: none;
+  display: none !important;
+}
+
+/* Debug: Force show all reviews for now */
+.review-card {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Related Products */
@@ -2757,20 +2767,28 @@ document.addEventListener('DOMContentLoaded', function() {
   slides = document.querySelectorAll('.thumbnail');
   mainImage = document.getElementById('main-product-image');
   
-  // Initialize reviews - hide additional reviews and set default sort
+  // Initialize reviews - show first 5 reviews
   const reviews = document.querySelectorAll('.review-card');
+  console.log('Found reviews:', reviews.length);
+  
   reviews.forEach((review, index) => {
-    if (index >= 5) {
+    if (index < 5) {
+      review.classList.remove('hidden');
+      console.log('Showing review', index);
+    } else {
       review.classList.add('hidden');
+      console.log('Hiding review', index);
     }
   });
+  
   totalReviews = reviews.length;
+  console.log('Total reviews:', totalReviews);
   
   // Set default sort to newest first
   const sortSelect = document.getElementById('sort-select');
   if (sortSelect) {
     sortSelect.value = 'newest';
-    sortReviews('newest', sortSelect);
+    // Don't call sortReviews initially, just show reviews
   }
   
   updateShowMoreButton();

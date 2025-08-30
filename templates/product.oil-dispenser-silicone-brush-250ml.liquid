@@ -11,13 +11,6 @@
   {% assign product_key_features = "250ml glass container with leak-proof seal,Food-grade silicone brush for precise application,Dishwasher safe and easy to clean,Perfect for greasing pans and applying marinades,Compact design fits any kitchen counter" | split: "," %}
   {% assign how_to_use = "Fill with your preferred oil,Press brush to dispense oil,Apply evenly to pans or food,Clean brush after use" | split: "," %}
   {% assign faqs = "What oils can I use?|Any cooking oil including olive, vegetable, or coconut oil.,Is it dishwasher safe?|Yes, both container and brush are dishwasher safe.,How much oil does it hold?|250ml capacity for multiple uses." | split: "," %}
-{% elsif product.handle == 'vegetable-cleaning-brush' %}
-  {% assign product_rating = 4.8 %}
-  {% assign product_review_count = 3221 %}
-  {% assign product_description = "🥕 Meet your veggie-scrub MVP. This carrot-shaped brush lifts mud and wax from potatoes, carrots, cucumbers, and fruit—fast and gentle. Keep peels (and nutrients) intact while getting a truly clean surface. ✨\n\n✋ Comfortable, non-slip grip. The ribbed body and thumb rest stay steady even with soapy hands. Control the pressure for firm veggies or softer produce. 🔒\n\n🚿 Hygienic and easy to clean. Rinse under the tap, give it a quick shake, and it dries fast—no lingering odors. Hang it up after use to keep your sink area tidy. 🧼🪝\n\n🍎 Small, cute, and versatile. Adds a pop of color by the sink and doubles for quick tasks—rinsing berries or scrubbing mini boards and colanders. Everyday prep made simpler. 🙌" %}
-  {% assign product_key_features = "🥕 Gentle, effective scrubbing: removes dirt & residue while keeping peels + nutrients intact\n\n✋ Ergonomic & non-slip: ribbed body + thumb rest for a secure hold\n\n🚿 Hygienic & quick-clean: rinse under the tap; bristles dry fast ⏱️\n\n😊 Compact & cute: carrot look adds a fun pop to your sink; easy to store or hang 🧺\n\n🍎 Multi-use: veggies, fruit, and even scrub small boards" | split: "\n\n" %}
-  {% assign how_to_use = "Wet produce and the brush\n\nScrub in light circular motions (adjust pressure for soft vs. firm produce)\n\nRinse produce & brush, then hang to dry" | split: "\n\n" %}
-  {% assign faqs = "What can I use this brush for?|For scrubbing dirt/wax off potatoes, carrots, cucumbers, apples and other firm produce. It also helps refresh colanders and small cutting boards.,Is it safe for soft fruits like tomatoes?|Yes—use a light touch and short strokes. Increase pressure only for firmer skins.,What materials is it made of?|Food-safe PP (polypropylene) handle with nylon bristles. BPA-free.,Will the bristles damage peels or remove nutrients?|No—bristles are firm yet gentle. They lift surface grime while keeping peels (and nutrients) intact when used with light to moderate pressure." | split: "," %}
 {% elsif product.handle == 'kitchen-sink-strainer-basket' %}
   {% assign product_rating = 4.8 %}
   {% assign product_review_count = 1247 %}
@@ -25,6 +18,7 @@
   {% assign product_key_features = "Easy-press design for simple cleaning,Fits most standard sink drains,Catches food particles effectively,Durable construction,Prevents drain clogs" | split: "," %}
   {% assign how_to_use = "Place in sink drain,Press down to secure,Clean regularly,Remove and rinse as needed" | split: "," %}
   {% assign faqs = "What size sink does this fit?|Fits most standard kitchen sink drains.,How do I clean it?|Simply remove and rinse under running water.,Is it dishwasher safe?|Yes, it's dishwasher safe for easy cleaning." | split: "," %}
+
 {% else %}
   {% assign product_rating = 4.5 %}
   {% assign product_review_count = 1500 %}
@@ -616,7 +610,7 @@
       </div>
     </div>
     
-    {% if product.handle == 'oil-dispenser-silicone-brush-250ml' %}
+    {% if product.handle == 'vegetable-cleaning-brush' %}
     <!-- Reviews Sorting -->
     <div class="reviews-sorting">
       <div class="sort-dropdown">
@@ -648,7 +642,7 @@
             <span class="review-date">Today</span>
           </div>
         </div>
-        <p class="review-text">"Perfect oil control for my cooking! This dispenser with silicone brush gives precise application. Great for greasing pans and applying marinades. Customer support was amazing when I had questions about care instructions."</p>
+        <p class="review-text">"Perfect for my daily cooking! This brush scrubs potatoes and carrots super fast. Great grip, no slipping even with wet hands. The cute carrot design adds a fun touch to my kitchen. Customer support was amazing when I had questions about care instructions."</p>
         <div class="review-footer">
           <span class="verified-badge">
             <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -683,7 +677,7 @@
             <span class="review-date">2 weeks ago</span>
           </div>
         </div>
-        <p class="review-text">"Daily cooking mein oil control perfect ho gaya! Silicone brush se precise application. Paisa vasool! Product quality is excellent and delivery was super fast. Great experience with the customer service team too."</p>
+        <p class="review-text">"Daily kaam easy ho gaya! Wet hands mein bhi slip nahi hota. Paisa vasool! Product quality is excellent and delivery was super fast. Great experience with the customer service team too."</p>
         <div class="review-footer">
           <span class="verified-badge">
             <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -718,7 +712,7 @@
             <span class="review-date">1 month ago</span>
           </div>
         </div>
-        <p class="review-text">"Compact and effective oil dispenser. The silicone brush gives precise control and the glass container is easy to clean. Good value for money. Perfect for daily cooking use."</p>
+        <p class="review-text">"Compact and effective design. Comfortable grip and quick rinse. Good value for money. The bristles are just right - not too hard, not too soft. Perfect for daily use."</p>
         <div class="review-footer">
           <span class="verified-badge">
             <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -753,7 +747,7 @@
             <span class="review-date">3 months ago</span>
           </div>
         </div>
-        <p class="review-text">"Kitchen me oil control perfect! Silicone brush se precise application. Great product quality and excellent customer support experience. Highly recommended for serious cooks!"</p>
+        <p class="review-text">"Kitchen me aesthetic touch bhi aur kaam bhi zabardast! Bristles strong and durable. Great product quality and excellent customer support experience. Highly recommended!"</p>
         <div class="review-footer">
           <span class="verified-badge">
             <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -859,7 +853,7 @@
             <span class="review-date">3 weeks ago</span>
           </div>
         </div>
-        <p class="review-text">"Excellent oil dispenser! The silicone brush gives perfect control for greasing pans and applying marinades. The design is functional and beautiful. Great customer support experience too!"</p>
+        <p class="review-text">"Excellent product! The brush is perfect for cleaning all types of vegetables. The design is cute and functional. Great customer support experience too!"</p>
         <div class="review-footer">
           <span class="verified-badge">
             <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -2723,42 +2717,20 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize reviews - hide additional reviews and set default sort
   const reviews = document.querySelectorAll('.review-card');
-  console.log('Found reviews:', reviews.length);
-  console.log('Reviews elements:', reviews);
-  
-  if (reviews.length > 0) {
-    totalReviews = reviews.length;
-    console.log('Total reviews set to:', totalReviews);
-    
-    reviews.forEach((review, index) => {
-      console.log(`Review ${index}:`, review);
-      console.log(`Review ${index} classes:`, review.className);
-      console.log(`Review ${index} hidden:`, review.classList.contains('hidden'));
-      
-      if (index >= 5) {
-        review.classList.add('hidden');
-        console.log('Hiding review', index);
-      } else {
-        review.classList.remove('hidden');
-        console.log('Showing review', index);
-      }
-      
-      console.log(`After change - Review ${index} hidden:`, review.classList.contains('hidden'));
-    });
-    
-    // Set default sort to newest first
-    const sortSelect = document.getElementById('sort-select');
-    if (sortSelect) {
-      sortSelect.value = 'newest';
-      // Don't call sortReviews during initialization to prevent errors
+  reviews.forEach((review, index) => {
+    if (index >= 4) {
+      review.classList.add('hidden');
     }
-    
-    // Don't call updateShowMoreButton during initialization to prevent errors
-    // It will be called later when needed
-  } else {
-    console.log('No reviews found!');
-    console.log('Document body:', document.body.innerHTML.substring(0, 1000));
+  });
+  
+  // Set default sort to newest first
+  const sortSelect = document.getElementById('sort-select');
+  if (sortSelect) {
+    sortSelect.value = 'newest';
+    sortReviews('newest', sortSelect);
   }
+  
+  updateShowMoreButton();
   
 
   
@@ -2844,8 +2816,8 @@ function updateTestimonialsDisplay() {
 // Direct add to cart function
   // Reviews functionality
   let currentSort = 'newest';
-  let reviewsShown = 5; // Start with 5 visible reviews
-  let totalReviews = 0; // Will be set dynamically
+  let reviewsShown = 4; // Start with 4 visible reviews
+  const totalReviews = 14; // Total 14 reviews (4 visible + 10 hidden)
   
   function sortReviews(sortType, selectElement) {
     currentSort = sortType;
@@ -2873,22 +2845,22 @@ function updateTestimonialsDisplay() {
     // Re-append sorted reviews
     reviews.forEach(review => container.appendChild(review));
     
-    // Show only first 5 reviews
+    // Show only first 4 reviews
     reviews.forEach((review, index) => {
-      if (index < 5) {
+      if (index < 4) {
         review.classList.remove('hidden');
       } else {
         review.classList.add('hidden');
       }
     });
     
-    reviewsShown = 5;
-    // Don't call updateShowMoreButton here to prevent errors
+    reviewsShown = 4;
+    updateShowMoreButton();
   }
   
   function showMoreReviews() {
     const reviews = document.querySelectorAll('.review-card');
-    const nextBatch = Math.min(reviewsShown + 5, totalReviews);
+    const nextBatch = Math.min(reviewsShown + 4, totalReviews);
     
     for (let i = reviewsShown; i < nextBatch; i++) {
       if (reviews[i]) {
@@ -2897,22 +2869,17 @@ function updateTestimonialsDisplay() {
     }
     
     reviewsShown = nextBatch;
-    // Only call updateShowMoreButton if it exists
-    if (typeof updateShowMoreButton === 'function') {
-      updateShowMoreButton();
-    }
+    updateShowMoreButton();
   }
   
   function updateShowMoreButton() {
     const remaining = totalReviews - reviewsShown;
     const btn = document.querySelector('.show-more-btn');
     
-    if (btn) {
-      if (remaining > 0) {
-        btn.style.display = 'flex';
-      } else {
-        btn.style.display = 'none';
-      }
+    if (remaining > 0) {
+      btn.style.display = 'flex';
+    } else {
+      btn.style.display = 'none';
     }
   }
   

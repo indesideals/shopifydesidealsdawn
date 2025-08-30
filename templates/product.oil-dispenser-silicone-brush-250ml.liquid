@@ -2717,9 +2717,13 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize reviews - hide additional reviews and set default sort
   const reviews = document.querySelectorAll('.review-card');
+  console.log('Found reviews:', reviews.length);
   reviews.forEach((review, index) => {
-    if (index >= 4) {
+    if (index >= 5) {
       review.classList.add('hidden');
+      console.log('Hiding review', index);
+    } else {
+      console.log('Showing review', index);
     }
   });
   
@@ -2816,8 +2820,8 @@ function updateTestimonialsDisplay() {
 // Direct add to cart function
   // Reviews functionality
   let currentSort = 'newest';
-  let reviewsShown = 4; // Start with 4 visible reviews
-  const totalReviews = 14; // Total 14 reviews (4 visible + 10 hidden)
+  let reviewsShown = 5; // Start with 5 visible reviews
+  const totalReviews = 15; // Total 15 reviews (5 visible + 10 hidden)
   
   function sortReviews(sortType, selectElement) {
     currentSort = sortType;
@@ -2845,22 +2849,22 @@ function updateTestimonialsDisplay() {
     // Re-append sorted reviews
     reviews.forEach(review => container.appendChild(review));
     
-    // Show only first 4 reviews
+    // Show only first 5 reviews
     reviews.forEach((review, index) => {
-      if (index < 4) {
+      if (index < 5) {
         review.classList.remove('hidden');
       } else {
         review.classList.add('hidden');
       }
     });
     
-    reviewsShown = 4;
+    reviewsShown = 5;
     // Don't call updateShowMoreButton here to prevent errors
   }
   
   function showMoreReviews() {
     const reviews = document.querySelectorAll('.review-card');
-    const nextBatch = Math.min(reviewsShown + 4, totalReviews);
+    const nextBatch = Math.min(reviewsShown + 5, totalReviews);
     
     for (let i = reviewsShown; i < nextBatch; i++) {
       if (reviews[i]) {

@@ -2718,20 +2718,25 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize reviews - hide additional reviews and set default sort
   const reviews = document.querySelectorAll('.review-card');
   console.log('Found reviews:', reviews.length);
-  reviews.forEach((review, index) => {
-    if (index >= 5) {
-      review.classList.add('hidden');
-      console.log('Hiding review', index);
-    } else {
-      console.log('Showing review', index);
-    }
-  });
   
-  // Set default sort to newest first
-  const sortSelect = document.getElementById('sort-select');
-  if (sortSelect) {
-    sortSelect.value = 'newest';
-    sortReviews('newest', sortSelect);
+  if (reviews.length > 0) {
+    reviews.forEach((review, index) => {
+      if (index >= 5) {
+        review.classList.add('hidden');
+        console.log('Hiding review', index);
+      } else {
+        console.log('Showing review', index);
+      }
+    });
+    
+    // Set default sort to newest first
+    const sortSelect = document.getElementById('sort-select');
+    if (sortSelect) {
+      sortSelect.value = 'newest';
+      sortReviews('newest', sortSelect);
+    }
+  } else {
+    console.log('No reviews found - reviews section might not be rendered');
   }
   
   // Don't call updateShowMoreButton here to prevent errors

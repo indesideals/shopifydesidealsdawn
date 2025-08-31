@@ -5,15 +5,14 @@
 {% endcomment %}
 
 {% assign full_stars = rating | floor %}
-{% assign decimal_part = rating | modulo: 1 | round: 1 %}
-{% assign next_star = full_stars | plus: 1 %}
+{% assign decimal_part = rating | modulo: 1 %}
 
 {% for i in (1..5) %}
   {% if i <= full_stars %}
-    <span class="star filled" style="color: #fbbf24;">★</span>
-  {% elsif decimal_part >= 0.1 and i == next_star %}
-    <span class="star partial" style="color: #fbbf24;">★</span>
+    <span class="star filled">★</span>
+  {% elsif decimal_part >= 0.5 and i == full_stars | plus: 1 %}
+    <span class="star partial">★</span>
   {% else %}
-    <span class="star" style="color: #d1d5db;">★</span>
+    <span class="star empty">★</span>
   {% endif %}
 {% endfor %}

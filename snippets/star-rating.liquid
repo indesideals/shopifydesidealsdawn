@@ -4,15 +4,10 @@
   You can manually set the rating for each product
 {% endcomment %}
 
-{% assign full_stars = rating | floor %}
-{% assign decimal_part = rating | modulo: 1 %}
+{% comment %}
+  Always show 5 golden stars for better visual appeal
+{% endcomment %}
 
 {% for i in (1..5) %}
-  {% if i <= full_stars %}
-    <span class="star filled">★</span>
-  {% elsif decimal_part >= 0.5 and i == full_stars | plus: 1 %}
-    <span class="star partial">★</span>
-  {% else %}
-    <span class="star empty">★</span>
-  {% endif %}
+  <span class="star filled" style="color: #fbbf24;">★</span>
 {% endfor %}

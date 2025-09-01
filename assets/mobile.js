@@ -195,6 +195,7 @@
                         this.previousElementSibling.style.color='#9ca3af';
                       "
                       oninput="window.handleMobileSearchInput(this.value)"
+                      onfocus="window.handleMobileSearchInput('')"
                     >
                   </div>
                   <button onclick="window.performMobileSearch()" style="
@@ -229,6 +230,8 @@
             ">
               <!-- Results will be inserted here -->
             </div>
+            
+
             
             <!-- Popular Searches (shown when no search) -->
             <div id="mobilePopularSearches">
@@ -296,6 +299,21 @@
                 " onmouseover="this.style.transform='translateY(-1px) scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(168, 85, 247, 0.3)'" 
                   onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 2px 8px rgba(168, 85, 247, 0.2)'">
                   🥕 Vegetable Slicer
+                </button>
+                <button onclick="window.handleMobileAccountAction()" style="
+                  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+                  border: 1px solid #10b981;
+                  padding: 8px 14px;
+                  border-radius: 20px;
+                  font-size: 12px;
+                  color: #065f46;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+                  font-weight: 600;
+                  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+                " onmouseover="this.style.transform='translateY(-1px) scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(16, 185, 129, 0.3)'" 
+                  onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 2px 8px rgba(16, 185, 129, 0.2)'">
+                  📦 My Orders
                 </button>
               </div>
             </div>
@@ -395,9 +413,12 @@
     const popularSearches = document.getElementById('mobilePopularSearches');
     
     if (!query.trim()) {
-      // Show popular searches, hide results
-      if (resultsContainer) resultsContainer.style.display = 'none';
-      if (popularSearches) popularSearches.style.display = 'block';
+      // Show all products when input is empty (focused)
+      if (popularSearches) popularSearches.style.display = 'none';
+      if (resultsContainer) {
+        resultsContainer.style.display = 'block';
+        window.searchProducts(''); // Show all products
+      }
       return;
     }
     
@@ -415,14 +436,16 @@
   };
 
   window.searchProducts = function(query) {
-    // Hardcoded real products from your store
+    console.log('Searching for:', query);
+    
+    // Use hardcoded products with proper image URLs for now
     const hardcodedProducts = [
       {
         title: 'Oil Dispenser Silicone Brush 250ml',
         handle: 'oil-dispenser-silicone-brush-250ml',
         price: 29900,
         compare_at_price: 49900,
-        featured_image: 'https://cdn.shopify.com/s/files/1/0s3zsa-w1/153742344404/files/oil-dispenser.jpg',
+        featured_image: '/products/oil-dispenser-silicone-brush-250ml.jpg',
         url: '/products/oil-dispenser-silicone-brush-250ml'
       },
       {
@@ -430,42 +453,97 @@
         handle: 'led-angel-night-light',
         price: 39900,
         compare_at_price: 59900,
-        featured_image: 'https://cdn.shopify.com/s/files/1/0s3zsa-w1/153742344404/files/night-light.jpg',
+        featured_image: '/products/led-angel-night-light.jpg',
         url: '/products/led-angel-night-light'
       },
       {
-        title: 'Handheld Vegetable Slicer 4-in-1',
-        handle: 'handheld-vegetable-slicer-4-in-1',
-        price: 24900,
-        compare_at_price: 39900,
-        featured_image: 'https://cdn.shopify.com/s/files/1/0s3zsa-w1/153742344404/files/vegetable-slicer.jpg',
-        url: '/products/handheld-vegetable-slicer-4-in-1'
+        title: '4-in-1 Stainless Steel Bowl Colander Grater',
+        handle: '4-in-1-stainless-steel-bowl-colander-grater',
+        price: 69900,
+        compare_at_price: 99900,
+        featured_image: '/products/4-in-1-stainless-steel-bowl-colander-grater.jpg',
+        url: '/products/4-in-1-stainless-steel-bowl-colander-grater'
       },
       {
-        title: 'Mini Sink Strainer Basket',
-        handle: 'mini-sink-strainer-basket',
-        price: 19900,
-        compare_at_price: 29900,
-        featured_image: 'https://cdn.shopify.com/s/files/1/0s3zsa-w1/153742344404/files/strainer.jpg',
-        url: '/products/mini-sink-strainer-basket'
+        title: 'Kitchen Sink Strainer Basket',
+        handle: 'kitchen-sink-strainer-basket',
+        price: 14900,
+        compare_at_price: 24900,
+        featured_image: '/products/kitchen-sink-strainer-basket.jpg',
+        url: '/products/kitchen-sink-strainer-basket'
       },
       {
         title: 'Heart Grater Slicer Set 4pc',
         handle: 'heart-grater-slicer-set-4pc',
         price: 34900,
         compare_at_price: 54900,
-        featured_image: 'https://cdn.shopify.com/s/files/1/0s3zsa-w1/153742344404/files/heart-grater.jpg',
+        featured_image: '/products/heart-grater-slicer-set-4pc.jpg',
         url: '/products/heart-grater-slicer-set-4pc'
+      },
+      {
+        title: 'Vegetable Cleaning Brush',
+        handle: 'vegetable-cleaning-brush',
+        price: 19900,
+        compare_at_price: 29900,
+        featured_image: '/products/vegetable-cleaning-brush.jpg',
+        url: '/products/vegetable-cleaning-brush'
+      },
+      {
+        title: 'Mini Electric Food Chopper',
+        handle: 'mini-electric-food-chopper',
+        price: 79900,
+        compare_at_price: 99900,
+        featured_image: '/products/mini-electric-food-chopper.jpg',
+        url: '/products/mini-electric-food-chopper'
+      },
+      {
+        title: '360° Rotating Hook Hanger',
+        handle: '360-rotating-hook-hanger',
+        price: 9900,
+        compare_at_price: 19900,
+        featured_image: '/products/360-rotating-hook-hanger.jpg',
+        url: '/products/360-rotating-hook-hanger'
+      },
+      {
+        title: 'Mini Hand Press Chopper 3-Blade',
+        handle: 'mini-hand-press-chopper-3-blade',
+        price: 34900,
+        compare_at_price: 54900,
+        featured_image: '/products/mini-hand-press-chopper-3-blade.jpg',
+        url: '/products/mini-hand-press-chopper-3-blade'
+      },
+      {
+        title: 'Mini Steam Iron Garment Steamer',
+        handle: 'mini-steam-iron-garment-steamer',
+        price: 89900,
+        compare_at_price: 129900,
+        featured_image: '/products/mini-steam-iron-garment-steamer.jpg',
+        url: '/products/mini-steam-iron-garment-steamer'
+      },
+      {
+        title: 'Pink Flamingo LED Night Light',
+        handle: 'pink-flamingo-led-night-light',
+        price: 39900,
+        compare_at_price: 59900,
+        featured_image: '/products/pink-flamingo-led-night-light.jpg',
+        url: '/products/pink-flamingo-led-night-light'
       }
     ];
 
     // Filter products based on search query
-    const filteredProducts = hardcodedProducts.filter(product => 
-      product.title.toLowerCase().includes(query.toLowerCase()) ||
-      product.handle.toLowerCase().includes(query.toLowerCase())
-    );
+    let filteredProducts;
+    if (!query.trim()) {
+      // Show all products when query is empty
+      filteredProducts = hardcodedProducts;
+    } else {
+      // Filter products based on search query
+      filteredProducts = hardcodedProducts.filter(product => 
+        product.title.toLowerCase().includes(query.toLowerCase()) ||
+        product.handle.toLowerCase().includes(query.toLowerCase())
+      );
+    }
 
-    console.log('Hardcoded search results for query:', query, filteredProducts);
+    console.log('Filtered products for query:', query, filteredProducts);
     window.displayMobileSearchResults(filteredProducts);
   };
 
@@ -482,12 +560,28 @@
       console.log('Processing product:', product);
       
       // Handle different data structures from suggest API
-      const image = product.featured_image || product.image || '';
+      let image = '';
+      if (product.featured_image) {
+        // Use proper Shopify image URL format
+        image = product.featured_image + '&width=100&height=100&crop=center';
+      } else if (product.image) {
+        image = product.image + '&width=100&height=100&crop=center';
+      } else if (product.featured_image_url) {
+        image = product.featured_image_url + '&width=100&height=100&crop=center';
+      } else if (product.images && product.images.length > 0) {
+        image = product.images[0] + '&width=100&height=100&crop=center';
+      } else {
+        // For hardcoded products, construct proper Shopify image URL
+        image = `https://cdn.shopify.com/s/files/1/0s3zsa-w1/153742344404/products/${product.handle}.jpg?width=100&height=100&crop=center`;
+      }
+      
+      console.log('Image URL for', product.title, ':', image);
+      
       const price = product.price ? (product.price / 100).toFixed(2) : '0.00';
       const comparePrice = product.compare_at_price ? (product.compare_at_price / 100).toFixed(2) : null;
       
-      // Always use the hardcoded URL for guaranteed navigation
-      const productUrl = product.url;
+      // Use product URL from API or fallback
+      const productUrl = product.url || `/products/${product.handle}`;
       
       return `
         <div style="
@@ -503,14 +597,6 @@
         onmouseover="this.style.background='#f9fafb'" 
         onmouseout="this.style.background='white'"
         onclick="window.location.href='${productUrl}'">
-          <img src="${image}" alt="${product.title}" style="
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-right: 12px;
-            background: #f3f4f6;
-          " loading="lazy">
           <div style="flex: 1;">
             <div style="
               font-size: 14px;
@@ -673,37 +759,55 @@
           flex-direction: column;
           box-shadow: -5px 0 15px rgba(0,0,0,0.2);
         ">
-          <div style="padding: 20px; border-bottom: 1px solid #eee; background: linear-gradient(135deg, #f8fafc, #f1f5f9);">
+          <div style="padding: 12px; border-bottom: 1px solid #eee; background: linear-gradient(135deg, #f8fafc, #f1f5f9);">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <div>
-                <h3 style="margin: 0; font-size: 18px; color: #333;">Shopping Cart</h3>
-                <div style="font-size: 14px; color: #666; margin-top: 4px;">
+                <h3 style="margin: 0; font-size: 16px; color: #333;">Shopping Cart</h3>
+                <div style="font-size: 12px; color: #666; margin-top: 2px;">
                   <span id="mobileCartItemCount">0</span> items
                 </div>
               </div>
-              <button onclick="closeMobileCart()" style="
-                background: #f3f4f6;
-          border: none;
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-              ">×</button>
+              <div style="display: flex; gap: 4px; align-items: center;">
+                <a href="#" onclick="clearMobileCart(); return false;" style="
+                  display: flex;
+                  align-items: center;
+                  gap: 4px;
+                  color: #dc3545;
+                  text-decoration: none;
+                  font-size: 12px;
+                  font-weight: 500;
+                  border-bottom: 1px dotted #dc3545;
+                  padding-bottom: 1px;
+                ">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14z"/>
+                  </svg>
+                  Clear Cart
+                </a>
+                <button onclick="closeMobileCart()" style="
+                  background: #f3f4f6;
+                  border: none;
+                  border-radius: 50%;
+                  width: 40px;
+                  height: 40px;
+                  font-size: 20px;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                ">×</button>
+              </div>
             </div>
           </div>
           
           <!-- Free Shipping Progress Bar -->
           <div id="mobileFreeShippingBar" style="
-            padding: 15px 20px;
+            padding: 7px 10px;
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
-          text-align: center;
-            font-size: 14px;
-          font-weight: 600;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
           ">
             <!-- Free shipping content will be inserted here -->
           </div>
@@ -723,23 +827,24 @@
             </div>
           </div>
           
-          <div style="padding: 20px; border-top: 1px solid #eee; background: white;">
+          <div style="padding: 12px; border-top: 1px solid #eee; background: white;">
             <!-- Order Summary -->
             <div id="mobileOrderSummary" style="
-              margin-bottom: 20px;
+              margin-bottom: 12px;
               background: #f8fafc;
-          border-radius: 12px;
+              border-radius: 8px;
               overflow: hidden;
             ">
               <div onclick="window.toggleMobileOrderSummary()" style="
-                padding: 15px 20px;
-          display: flex;
+                padding: 8px 12px;
+                display: flex;
                 justify-content: space-between;
-          align-items: center;
+                align-items: center;
                 cursor: pointer;
                 font-weight: 600;
                 color: #374151;
                 background: #f1f5f9;
+                font-size: 14px;
               ">
                 <span>Order Summary</span>
                 <svg id="mobileOrderArrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition: transform 0.3s ease;">
@@ -747,7 +852,7 @@
                 </svg>
               </div>
               <div id="mobileOrderDetails" style="
-                padding: 20px;
+                padding: 12px;
                 background: white;
                 display: none;
               ">
@@ -756,22 +861,22 @@
             </div>
             
             <!-- Total -->
-            <div style="margin-bottom: 20px; text-align: center;">
+            <div style="margin-bottom: 12px; text-align: center;">
               <strong style="font-size: 18px;">Total: ₹<span id="mobileCheckoutTotal">0.00</span></strong>
             </div>
             
             <!-- Checkout Button -->
-            <button onclick="window.proceedToMobileCheckout()" style="
-          width: 100%;
-              padding: 15px;
+                        <button onclick="window.proceedToMobileCheckout()" style="
+              width: 100%;
+              padding: 10px;
               background: linear-gradient(135deg, #6366f1, #8b5cf6);
-          color: white;
-          border: none;
-          border-radius: 12px;
-          font-size: 16px;
-          font-weight: 600;
-          cursor: pointer;
-              margin-bottom: 20px;
+              color: white;
+              border: none;
+              border-radius: 8px;
+              font-size: 14px;
+              font-weight: 600;
+              cursor: pointer;
+              margin-bottom: 12px;
               display: flex;
               align-items: center;
               justify-content: center;
@@ -953,55 +1058,55 @@
       cartBody.innerHTML = this.items.map(item => `
         <div style="
           display: flex;
-          gap: 15px;
-          padding: 15px;
+          gap: 10px;
+          padding: 10px;
           background: white;
-          border-radius: 12px;
-          margin-bottom: 15px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          border-radius: 8px;
+          margin-bottom: 10px;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.1);
         ">
           <div style="
-          width: 60px;
-          height: 60px;
-          border-radius: 8px;
+          width: 50px;
+          height: 50px;
+          border-radius: 6px;
           overflow: hidden;
           flex-shrink: 0;
           ">
             <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div style="flex: 1;">
-            <div style="font-size: 14px; font-weight: 600; color: #333; margin-bottom: 5px;">${item.title}</div>
-            <div style="font-size: 16px; color: #6366f1; font-weight: 700; margin-bottom: 10px;">₹${(item.price * item.quantity).toFixed(2)}</div>
-            <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="font-size: 12px; font-weight: 600; color: #333; margin-bottom: 3px;">${item.title}</div>
+            <div style="font-size: 14px; color: #6366f1; font-weight: 700; margin-bottom: 8px;">₹${(item.price * item.quantity).toFixed(2)}</div>
+            <div style="display: flex; align-items: center; gap: 8px;">
               <button onclick="window.updateMobileCartQuantity('${item.variantId}', ${item.quantity - 1})" style="
                 background: #f3f4f6;
                 border: none;
-                width: 30px;
-                height: 30px;
-                border-radius: 6px;
+                width: 26px;
+                height: 26px;
+                border-radius: 4px;
                 cursor: pointer;
-                font-size: 16px;
+                font-size: 14px;
           font-weight: 600;
               ">−</button>
-              <span style="font-weight: 600; min-width: 20px; text-align: center;">${item.quantity}</span>
+              <span style="font-weight: 600; min-width: 16px; text-align: center; font-size: 12px;">${item.quantity}</span>
               <button onclick="window.updateMobileCartQuantity('${item.variantId}', ${item.quantity + 1})" style="
           background: #f3f4f6;
           border: none;
-                width: 30px;
-                height: 30px;
-                border-radius: 6px;
+                width: 26px;
+                height: 26px;
+                border-radius: 4px;
           cursor: pointer;
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 600;
               ">+</button>
               <button onclick="window.removeMobileCartItem('${item.variantId}')" style="
           background: none;
           border: none;
           color: #ef4444;
-          font-size: 12px;
+          font-size: 10px;
           cursor: pointer;
-                padding: 8px;
-          border-radius: 6px;
+                padding: 6px;
+          border-radius: 4px;
           margin-left: auto;
                 font-weight: 600;
               ">Remove</button>
@@ -1010,7 +1115,10 @@
         </div>
       `).join('');
 
-      checkoutTotal.textContent = this.getTotal().toFixed(2);
+      const subtotal = this.getTotal();
+      const shippingCost = subtotal < 299 ? 49 : 0;
+      const finalTotal = subtotal + shippingCost;
+      checkoutTotal.textContent = finalTotal.toFixed(2);
       
       // Update free shipping and order summary
       this.updateMobileFreeShipping();
@@ -1032,8 +1140,7 @@
         freeShippingBar.innerHTML = `
           <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
             <span>🚚</span>
-            <span>Congratulations! You've unlocked FREE shipping!</span>
-            <span>🎉</span>
+            <span>FREE shipping unlocked! 🎉</span>
           </div>
         `;
       } else {
@@ -1456,6 +1563,53 @@
     MobileCart.removeItem(variantId);
   };
 
+  window.clearMobileCart = function() {
+    console.log('clearMobileCart called');
+    try {
+      if (typeof MobileCart !== 'undefined') {
+        MobileCart.items = [];
+        localStorage.setItem('mobile_cart', JSON.stringify([]));
+        MobileCart.updateCartDisplay();
+        MobileCart.updateCartCount();
+        console.log('Cart cleared successfully');
+      } else {
+        console.error('MobileCart is not defined');
+        // Fallback: clear localStorage directly
+        localStorage.setItem('mobile_cart', JSON.stringify([]));
+        localStorage.setItem('localCart', JSON.stringify([]));
+        location.reload();
+      }
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      // Fallback: clear localStorage and reload
+      localStorage.setItem('mobile_cart', JSON.stringify([]));
+      localStorage.setItem('localCart', JSON.stringify([]));
+      location.reload();
+    }
+  };
+
+  window.handleMobileAccountAction = function() {
+    console.log('handleMobileAccountAction called');
+    // Check if user is logged in by looking for customer data
+    fetch('/account')
+      .then(response => {
+        if (response.ok) {
+          // User is logged in, redirect to account page
+          console.log('User is logged in, redirecting to account');
+          window.location.href = '/account';
+        } else {
+          // User is not logged in, redirect to login page
+          console.log('User is not logged in, redirecting to login');
+          window.location.href = '/account/login';
+        }
+      })
+      .catch(error => {
+        console.error('Error checking login status:', error);
+        // Fallback: redirect to login page
+        window.location.href = '/account/login';
+      });
+  };
+
   window.proceedToMobileCheckout = function() {
     console.log('proceedToMobileCheckout called');
     MobileCart.proceedToCheckout();
@@ -1537,5 +1691,29 @@
 
     console.log('Mobile JavaScript loaded successfully');
   });
+
+  // Global clear cart function (backup)
+  window.clearMobileCart = function() {
+    console.log('Global clearMobileCart called');
+    try {
+      if (typeof MobileCart !== 'undefined') {
+        MobileCart.items = [];
+        localStorage.setItem('mobile_cart', JSON.stringify([]));
+        MobileCart.updateCartDisplay();
+        MobileCart.updateCartCount();
+        console.log('Cart cleared successfully');
+      } else {
+        console.error('MobileCart is not defined');
+        localStorage.setItem('mobile_cart', JSON.stringify([]));
+        localStorage.setItem('localCart', JSON.stringify([]));
+        location.reload();
+      }
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      localStorage.setItem('mobile_cart', JSON.stringify([]));
+      localStorage.setItem('localCart', JSON.stringify([]));
+      location.reload();
+    }
+  };
 
 })();

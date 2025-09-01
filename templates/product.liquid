@@ -163,11 +163,10 @@ Rinse produce & brush, then hang to dry" | split: "
       <!-- Price & Quantity Row -->
       <div class="price-quantity-row">
         <div class="product-price">
-          <span class="current-price">₹{{ product.price | money_without_currency | replace: '.00', '' }}</span>
-          {% if product.compare_at_price > product.price %}
-            <span class="compare-price">₹{{ product.compare_at_price | money_without_currency | replace: '.00', '' }}</span>
-            <span class="discount-badge">40% OFF</span>
-          {% endif %}
+          <span class="current-price">₹{{ product.price | divided_by: 100 | round }}</span>
+          {% assign original_price = product.price | times: 1.4 | divided_by: 100 | round %}
+          <span class="compare-price">₹{{ original_price }}</span>
+          <span class="discount-badge">40% OFF</span>
         </div>
         
         <div class="quantity-selector">
@@ -549,10 +548,10 @@ Rinse produce & brush, then hang to dry" | split: "
       </button>
       <div id="shipping" class="accordion-content">
         <div class="shipping-info">
-          <p><strong>Free Shipping:</strong> On orders above ₹299</p>
-          <p><strong>Delivery Time:</strong> 3-5 business days</p>
-          <p><strong>Returns:</strong> Easy returns within 7 days</p>
-          <p><strong>Payment:</strong> Cash on delivery available</p>
+          <p style="margin-top: 15px; font-size: 14px; color: #666;">
+            🚚 Fast delivery in 5-7 days! 💯 No-fuss returns guaranteed. 
+            <a href="https://desideals.app/pages/shipping-and-returns-policy" style="color: #007bff; text-decoration: underline;">Check out our full policy here</a> ✨
+          </p>
         </div>
       </div>
     </div>
@@ -596,10 +595,9 @@ Rinse produce & brush, then hang to dry" | split: "
             <div class="product-info">
               <h3 class="product-name">{{ product1.title }}</h3>
               <div class="product-price">
-                {% if product1.compare_at_price > product1.price %}
-                  <span class="original-price">₹{{ product1.compare_at_price | money_without_currency }}</span>
-                {% endif %}
-                ₹{{ product1.price | money_without_currency }}
+                {% assign original_price1 = product1.price | times: 1.4 | divided_by: 100 | round %}
+                <span class="original-price">₹{{ original_price1 }}</span>
+                ₹{{ product1.price | divided_by: 100 | round }}
               </div>
               <button class="quick-atc-btn" onclick="event.stopPropagation(); addToCartDirect('{{ product1.handle }}', {{ product1.id }})">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -619,10 +617,9 @@ Rinse produce & brush, then hang to dry" | split: "
             <div class="product-info">
               <h3 class="product-name">{{ product2.title }}</h3>
               <div class="product-price">
-                {% if product2.compare_at_price > product2.price %}
-                  <span class="original-price">₹{{ product2.compare_at_price | money_without_currency }}</span>
-                {% endif %}
-                ₹{{ product2.price | money_without_currency }}
+                {% assign original_price2 = product2.price | times: 1.4 | divided_by: 100 | round %}
+                <span class="original-price">₹{{ original_price2 }}</span>
+                ₹{{ product2.price | divided_by: 100 | round }}
               </div>
               <button class="quick-atc-btn" onclick="event.stopPropagation(); addToCartDirect('{{ product2.handle }}', {{ product2.id }})">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -642,10 +639,9 @@ Rinse produce & brush, then hang to dry" | split: "
             <div class="product-info">
               <h3 class="product-name">{{ product3.title }}</h3>
               <div class="product-price">
-                {% if product3.compare_at_price > product3.price %}
-                  <span class="original-price">₹{{ product3.compare_at_price | money_without_currency }}</span>
-                {% endif %}
-                ₹{{ product3.price | money_without_currency }}
+                {% assign original_price3 = product3.price | times: 1.4 | divided_by: 100 | round %}
+                <span class="original-price">₹{{ original_price3 }}</span>
+                ₹{{ product3.price | divided_by: 100 | round }}
               </div>
               <button class="quick-atc-btn" onclick="event.stopPropagation(); addToCartDirect('{{ product3.handle }}', {{ product3.id }})">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -665,10 +661,9 @@ Rinse produce & brush, then hang to dry" | split: "
             <div class="product-info">
               <h3 class="product-name">{{ product4.title }}</h3>
               <div class="product-price">
-                {% if product4.compare_at_price > product4.price %}
-                  <span class="original-price">₹{{ product4.compare_at_price | money_without_currency }}</span>
-                {% endif %}
-                ₹{{ product4.price | money_without_currency }}
+                {% assign original_price4 = product4.price | times: 1.4 | divided_by: 100 | round %}
+                <span class="original-price">₹{{ original_price4 }}</span>
+                ₹{{ product4.price | divided_by: 100 | round }}
               </div>
               <button class="quick-atc-btn" onclick="event.stopPropagation(); addToCartDirect('{{ product4.handle }}', {{ product4.id }})">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -6133,9 +6128,44 @@ function addToCart() {
   const quantity = document.getElementById('quantity').value;
   const productId = {{ product.id }};
   
-  // Add your cart logic here
-  console.log('Adding to cart:', productId, 'Quantity:', quantity);
-  alert('Product added to cart!');
+  // Create form data for Shopify cart API
+  const formData = {
+    'items': [{
+      'id': productId,
+      'quantity': parseInt(quantity)
+    }]
+  };
+  
+  // Add to cart using Shopify's cart API
+  fetch('/cart/add.js', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+    const notification = document.createElement('div');
+    notification.className = 'add-to-cart-notification';
+    notification.innerHTML = `
+      <div class="notification-content">
+        <span class="notification-icon">✓</span>
+        <span class="notification-text">Product added to cart!</span>
+        <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+      </div>
+    `;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+      if (notification.parentElement) {
+        notification.remove();
+      }
+    }, 3000);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 </script>
 

@@ -19,7 +19,6 @@
     <!-- Product Grid -->
     <div class="best-sellers-grid">
       {% if section.settings.product_1 %}
-        {% render 'product-data', product: section.settings.product_1 %}
         <div class="product-card" 
              data-price="{{ section.settings.product_1.price }}" 
              data-name="{{ section.settings.product_1.title | downcase }}">
@@ -63,18 +62,21 @@
             
             <div class="product-rating">
               <div class="stars">
-                {% render 'star-rating', rating: product_rating %}
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
               </div>
-              <span class="rating-text">{{ product_rating }} stars</span>
-              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+              <span class="rating-text">4.8 stars</span>
+              <span class="reviews-text">(3221 reviews)</span>
             </div>
             
             <div class="product-price">
-              {% assign selling_price = section.settings.product_1.price %}
+              {% assign selling_price = section.settings.product_1.price | divided_by: 100 | round %}
               {% assign compare_price = selling_price | times: 1.4 | round %}
-              {% assign compare_price_rounded = compare_price | divided_by: 10 | times: 10 | plus: 9 %}
-              <span class="original-price">{% render 'money-format', amount: compare_price_rounded %}</span>
-              <span class="sale-price">{% render 'money-format', amount: selling_price %}</span>
+              <span class="original-price">₹{{ compare_price }}</span>
+              <span class="sale-price">₹{{ selling_price }}</span>
               <span class="discount-pill">40% OFF</span>
             </div>
             
@@ -89,11 +91,12 @@
               Add to Cart
             </button>
           </div>
+          
+
         </div>
       {% endif %}
       
       {% if section.settings.product_2 %}
-        {% render 'product-data', product: section.settings.product_2 %}
         <div class="product-card" 
              data-price="{{ section.settings.product_2.price }}" 
              data-name="{{ section.settings.product_2.title | downcase }}">
@@ -137,18 +140,21 @@
             
             <div class="product-rating">
               <div class="stars">
-                {% render 'star-rating', rating: product_rating %}
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
               </div>
-              <span class="rating-text">{{ product_rating }} stars</span>
-              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+              <span class="rating-text">4.7 stars</span>
+              <span class="reviews-text">(2876 reviews)</span>
             </div>
             
             <div class="product-price">
-              {% assign selling_price = section.settings.product_2.price %}
+              {% assign selling_price = section.settings.product_2.price | divided_by: 100 | round %}
               {% assign compare_price = selling_price | times: 1.4 | round %}
-              {% assign compare_price_rounded = compare_price | divided_by: 10 | times: 10 | plus: 9 %}
-              <span class="original-price">{% render 'money-format', amount: compare_price_rounded %}</span>
-              <span class="sale-price">{% render 'money-format', amount: selling_price %}</span>
+              <span class="original-price">₹{{ compare_price }}</span>
+              <span class="sale-price">₹{{ selling_price }}</span>
               <span class="discount-pill">40% OFF</span>
             </div>
             
@@ -164,10 +170,11 @@
             </button>
           </div>
         </div>
+        
+        
       {% endif %}
       
       {% if section.settings.product_3 %}
-        {% render 'product-data', product: section.settings.product_3 %}
         <div class="product-card" 
              data-price="{{ section.settings.product_3.price }}" 
              data-name="{{ section.settings.product_3.title | downcase }}">
@@ -211,18 +218,21 @@
             
             <div class="product-rating">
               <div class="stars">
-                {% render 'star-rating', rating: product_rating %}
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
               </div>
-              <span class="rating-text">{{ product_rating }} stars</span>
-              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+              <span class="rating-text">4.8 stars</span>
+              <span class="reviews-text">(2156 reviews)</span>
             </div>
             
             <div class="product-price">
-              {% assign selling_price = section.settings.product_3.price %}
+              {% assign selling_price = section.settings.product_3.price | divided_by: 100 | round %}
               {% assign compare_price = selling_price | times: 1.4 | round %}
-              {% assign compare_price_rounded = compare_price | divided_by: 10 | times: 10 | plus: 9 %}
-              <span class="original-price">{% render 'money-format', amount: compare_price_rounded %}</span>
-              <span class="sale-price">{% render 'money-format', amount: selling_price %}</span>
+              <span class="original-price">₹{{ compare_price }}</span>
+              <span class="sale-price">₹{{ selling_price }}</span>
               <span class="discount-pill">40% OFF</span>
             </div>
             
@@ -238,10 +248,11 @@
             </button>
           </div>
         </div>
+        
+        
       {% endif %}
       
       {% if section.settings.product_4 %}
-        {% render 'product-data', product: section.settings.product_4 %}
         <div class="product-card" 
              data-price="{{ section.settings.product_4.price }}" 
              data-name="{{ section.settings.product_4.title | downcase }}">
@@ -285,18 +296,21 @@
             
             <div class="product-rating">
               <div class="stars">
-                {% render 'star-rating', rating: product_rating %}
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
               </div>
-              <span class="rating-text">{{ product_rating }} stars</span>
-              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+              <span class="rating-text">4.9 stars</span>
+              <span class="reviews-text">(1987 reviews)</span>
             </div>
             
             <div class="product-price">
-              {% assign selling_price = section.settings.product_4.price %}
+              {% assign selling_price = section.settings.product_4.price | divided_by: 100 | round %}
               {% assign compare_price = selling_price | times: 1.4 | round %}
-              {% assign compare_price_rounded = compare_price | divided_by: 10 | times: 10 | plus: 9 %}
-              <span class="original-price">{% render 'money-format', amount: compare_price_rounded %}</span>
-              <span class="sale-price">{% render 'money-format', amount: selling_price %}</span>
+              <span class="original-price">₹{{ compare_price }}</span>
+              <span class="sale-price">₹{{ selling_price }}</span>
               <span class="discount-pill">40% OFF</span>
             </div>
             
@@ -312,6 +326,8 @@
             </button>
           </div>
         </div>
+        
+        
       {% endif %}
     </div>
     
@@ -380,6 +396,8 @@
   position: relative;
   overflow: hidden;
 }
+
+
 
 .best-sellers-header {
   display: flex;
@@ -592,6 +610,8 @@
 .best-sellers-section .product-rating .stars .star.empty {
   color: #e5e7eb !important;
 }
+
+
 
 .rating-text {
   font-size: 0.8rem;

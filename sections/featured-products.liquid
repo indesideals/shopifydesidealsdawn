@@ -22,19 +22,22 @@
             </h3>
             
             <!-- Product Rating -->
-            {% render 'product-data', product: product %}
             <div class="product-rating" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
               <div class="stars" style="display: flex; gap: 0.125rem;">
-                {% render 'star-rating', rating: product_rating %}
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
               </div>
-              <span style="font-size: 0.8rem; color: #6b7280;">{{ product_rating }} ({{ product_review_count }})</span>
+              <span style="font-size: 0.8rem; color: #6b7280;">4.8 (100)</span>
             </div>
             
             <div class="product-price" style="margin-bottom: 1rem;">
-              {% if product.compare_at_price > product.price %}
-                <span style="text-decoration: line-through; color: #999; margin-right: 0.5rem;">{% render 'money-format', amount: product.compare_at_price %}</span>
-              {% endif %}
-              <span style="font-weight: bold; color: var(--color-accent);">{% render 'money-format', amount: product.price %}</span>
+              {% assign selling_price = product.price | divided_by: 100 | round %}
+              {% assign compare_price = selling_price | times: 1.4 | round %}
+              <span style="text-decoration: line-through; color: #999; margin-right: 0.5rem;">₹{{ compare_price }}</span>
+              <span style="font-weight: bold; color: var(--color-accent);">₹{{ selling_price }}</span>
             </div>
             
             <button type="button" class="btn add-to-cart" style="width: 100%;"

@@ -34,8 +34,7 @@
           <h3>Your wishlist is empty</h3>
           <p>Start adding products to your wishlist by clicking the heart icon on any product!</p>
           <div class="empty-actions">
-            <a href="/collections/all" class="shop-now-btn">Start Shopping</a>
-            <a href="/" class="browse-btn">Browse Homepage</a>
+            <a href="/collections/all" class="shop-now-btn">Shop All Products</a>
           </div>
         </div>
       </div>
@@ -332,25 +331,24 @@
 }
 
 .shop-now-btn {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .shop-now-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-}
-
-.browse-btn {
-  background: white;
-  color: var(--color-accent);
-  border: 2px solid var(--color-accent);
-}
-
-.browse-btn:hover {
-  background: #667eea;
-  color: white;
-  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
 }
 
 /* Favorites Grid */

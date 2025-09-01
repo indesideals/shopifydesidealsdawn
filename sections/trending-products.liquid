@@ -71,21 +71,23 @@
             </div>
             
             <!-- Star Rating and Reviews -->
-            {% render 'product-data', product: section.settings.featured_product %}
             <div class="product-rating">
               <div class="stars">
-                {% render 'star-rating', rating: product_rating %}
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
+                <span class="star filled" style="color: #fbbf24;">★</span>
               </div>
-              <span class="rating-text">{{ product_rating }}</span>
-              <span class="reviews-text">({{ product_review_count }} reviews)</span>
+              <span class="rating-text">4.8</span>
+              <span class="reviews-text">(1247 reviews)</span>
             </div>
             
             <div class="trending-product-price">
-              {% assign selling_price = section.settings.featured_product.price %}
+              {% assign selling_price = section.settings.featured_product.price | divided_by: 100 | round %}
               {% assign compare_price = selling_price | times: 1.4 | round %}
-              {% assign compare_price_rounded = compare_price | divided_by: 10 | times: 10 | plus: 9 %}
-              <span class="trending-original-price">{% render 'money-format', amount: compare_price_rounded %}</span>
-              <span class="trending-sale-price">{% render 'money-format', amount: selling_price %}</span>
+              <span class="trending-original-price">₹{{ compare_price }}</span>
+              <span class="trending-sale-price">₹{{ selling_price }}</span>
               <span class="sale-badge">40% OFF</span>
             </div>
             
